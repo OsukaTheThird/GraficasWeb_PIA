@@ -1,0 +1,11 @@
+Model Information:
+* title:	Granja
+* source:	https://sketchfab.com/3d-models/granja-a63dccd75b7c4107bb3815a9db63aa86
+* author:	hector_molo (https://sketchfab.com/hector_molo)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Granja" (https://sketchfab.com/3d-models/granja-a63dccd75b7c4107bb3815a9db63aa86) by hector_molo (https://sketchfab.com/hector_molo) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

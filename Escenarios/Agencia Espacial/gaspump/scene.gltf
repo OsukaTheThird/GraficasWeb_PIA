@@ -1,0 +1,585 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 6041,
+      "max": [
+        43.49397659301758,
+        19.002077102661133,
+        150.5835723876953
+      ],
+      "min": [
+        -23.709138870239258,
+        -19.002077102661133,
+        -1.4156103134155273e-05
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 72492,
+      "componentType": 5126,
+      "count": 6041,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 6041,
+      "max": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 6041,
+      "max": [
+        0.9974091649055481,
+        0.9944539666175842
+      ],
+      "min": [
+        0.002626776695251465,
+        0.003698870539665222
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 20013,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 144984,
+      "componentType": 5126,
+      "count": 566,
+      "max": [
+        20.413188934326172,
+        9.182632446289063,
+        182.6630401611328
+      ],
+      "min": [
+        -20.413188934326172,
+        -17.614625930786133,
+        127.39507293701172
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 151776,
+      "componentType": 5126,
+      "count": 566,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 96656,
+      "componentType": 5126,
+      "count": 566,
+      "max": [
+        1.0,
+        1.0,
+        0.9843025207519531,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9843026995658875,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 48328,
+      "componentType": 5126,
+      "count": 566,
+      "max": [
+        0.9839602112770081,
+        0.9881665706634521
+      ],
+      "min": [
+        0.01805199310183525,
+        0.012184204533696175
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 52856,
+      "componentType": 5126,
+      "count": 566,
+      "max": [
+        0.9839602112770081,
+        0.9881665706634521
+      ],
+      "min": [
+        0.01805199310183525,
+        0.012184204533696175
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 80052,
+      "componentType": 5125,
+      "count": 2580,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 158568,
+      "componentType": 5126,
+      "count": 90,
+      "max": [
+        20.691850662231445,
+        9.182632446289063,
+        136.05836486816406
+      ],
+      "min": [
+        -20.691850662231445,
+        -17.95336151123047,
+        91.31688690185547
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 159648,
+      "componentType": 5126,
+      "count": 90,
+      "max": [
+        1.0,
+        4.596483449859079e-06,
+        1.3940287146851915e-07
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -5.850836259924108e-06
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 57384,
+      "componentType": 5126,
+      "count": 90,
+      "max": [
+        0.8224555253982544,
+        0.9848698973655701
+      ],
+      "min": [
+        0.03213587403297424,
+        0.014979753643274307
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 58104,
+      "componentType": 5126,
+      "count": 90,
+      "max": [
+        0.8224555253982544,
+        0.9848698973655701
+      ],
+      "min": [
+        0.03213587403297424,
+        0.014979753643274307
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 90372,
+      "componentType": 5125,
+      "count": 246,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Rescue3D Assets (https://sketchfab.com/rescue3d)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/vintage-gas-pump-0096f206ce1a4381bea58f9f94fc6b1c",
+      "title": "Vintage Gas Pump"
+    },
+    "generator": "Sketchfab-15.17.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 91356,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 58824,
+      "byteOffset": 91356,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 160728,
+      "byteOffset": 150180,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 105712,
+      "byteOffset": 310908,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 416620,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/GasDispenser_Main_baseColor.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Main_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Main_normal.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Emission_baseColor.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Emission_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Emission_emissive.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Emission_normal.png"
+    },
+    {
+      "uri": "textures/GasDispenser_Alpha_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "GasDispenser_Main",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissiveTexture": {
+        "index": 5
+      },
+      "name": "GasDispenser_Emission",
+      "normalTexture": {
+        "index": 6
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicRoughnessTexture": {
+          "index": 4
+        }
+      }
+    },
+    {
+      "alphaMode": "BLEND",
+      "doubleSided": true,
+      "name": "GasDispenser_Alpha",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.8211145618000169
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Main_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Emission_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8,
+            "TEXCOORD_1": 9
+          },
+          "indices": 10,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Alpha_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 12,
+            "POSITION": 11,
+            "TEXCOORD_0": 13,
+            "TEXCOORD_1": 14
+          },
+          "indices": 15,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "5518a17ebaaa47e9b8b6b93a0fde7189.fbx"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.999999999999999,
+        4.371138828673792e-08,
+        0.0,
+        0.0,
+        -4.371138828673792e-08,
+        0.999999999999999,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Vintage_Gas_Dispenser"
+    },
+    {
+      "children": [
+        5,
+        6,
+        7
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        -0.0,
+        1.0,
+        6.123233995736766e-17,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Object_4"
+    },
+    {
+      "mesh": 0,
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Main_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Emission_0"
+    },
+    {
+      "mesh": 2,
+      "name": "Vintage_Gas_Dispenser_GasDispenser_Alpha_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    }
+  ]
+}

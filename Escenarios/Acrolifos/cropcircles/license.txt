@@ -1,0 +1,11 @@
+Model Information:
+* title:	Crop Circles - UK
+* source:	https://sketchfab.com/3d-models/crop-circles-uk-714676fb66514d34888803151a6499f2
+* author:	Arqueomodel3D (https://sketchfab.com/juanbrualla)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Crop Circles - UK" (https://sketchfab.com/3d-models/crop-circles-uk-714676fb66514d34888803151a6499f2) by Arqueomodel3D (https://sketchfab.com/juanbrualla) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

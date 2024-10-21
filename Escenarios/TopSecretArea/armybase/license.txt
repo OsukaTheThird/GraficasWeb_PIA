@@ -1,0 +1,11 @@
+Model Information:
+* title:	Army Base
+* source:	https://sketchfab.com/3d-models/army-base-090c7bb0f0624660993360cb4489e354
+* author:	walter sanchez (https://sketchfab.com/waltersnchz)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Army Base" (https://sketchfab.com/3d-models/army-base-090c7bb0f0624660993360cb4489e354) by walter sanchez (https://sketchfab.com/waltersnchz) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

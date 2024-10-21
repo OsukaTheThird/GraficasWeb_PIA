@@ -1,0 +1,245 @@
+@font-face {
+    font-family: "MajorMonoDisplay";
+    src: url("../Fonts/MajorMonoDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "MuseoModerno";
+    src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
+}
+
+:root {
+  --azul-pastel: rgb(95, 143, 163);
+  --turqueza: #61baa4;
+  --amarillo-palido: rgb(255, 255, 221);
+  --naranja-zanahoria: rgb(255, 155, 43);
+  --verde-claro: rgb(210, 208, 71);
+  font-family: "MuseoModerno";
+}
+
+body{
+    margin: 0;
+}
+
+#btnRegresar{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    border: 4px rgb(31, 51, 71) solid ;
+    position: absolute;
+    border-radius: 50%;
+    margin: 20px;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    transition: 150ms all;
+}
+
+#btnRegresar img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnRegresar:hover{
+    height: 110px;
+    width: 110px;
+}
+
+/* Título */
+
+#idTitulo.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.title{
+    background: linear-gradient(0deg, rgba(97,186,164,0.8) 0%, rgba(95,143,163,0.8) 100%);
+    color: var(--amarillo-palido);
+    border-radius: 30px;
+    border: 10px solid transparent;
+    width: 50%;
+    min-width: max-content;
+    margin: 20px;
+}
+
+.title h1{
+    margin: 7px;
+    font-family: "MajorMonoDisplay";
+    font-size: 40px;
+}
+
+.title p{
+    font-size: 20px;
+}
+
+/* Escenarios */
+
+#idEscenarios.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+}
+
+.selectStage{
+    background: linear-gradient(0deg, rgba(97,186,164,1) 0%, rgba(95,143,163,1) 100%);
+    border: 5px transparent solid;
+    border-radius: 30px;
+    width: 20%;
+    min-width: 300px;
+    padding: 10px;
+    transition: 200ms all;
+}
+
+.selectStage h2{
+    font-family: 'MajorMonoDisplay';
+    text-transform: uppercase;
+    font-size: 23px;
+    color: rgb(31, 51, 71);
+}
+
+.selectStage p{
+    font-size: 15px;
+}
+
+.selectStage img{
+    object-fit:cover;
+    width: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.selectStage img + div{
+    padding: 0 10px 10px 10px;
+}
+
+#idFacil::after{
+    content: " FÁCIL";
+    color: rgb(44, 94, 170);
+}
+
+#idDificil::after{
+    content: " DIFÍCIL";
+    color:brown;
+}
+
+.selectStage:hover{
+    width: 25%;
+    box-shadow:-5px 5px var(--azul-pastel), -10px 10px 10px rgb(31, 51, 71);
+    border-bottom: none;
+}
+.selectStage.active {
+    width: 25%;
+    background-image: radial-gradient(100% 100% at 100% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
+    box-shadow:-15px 15px var(--verde-claro), -20px 20px 10px rgba(31, 51, 71, 0.3);
+    color: var(--amarillo-palido);
+    border: none;
+    border-bottom: 5px transparent solid;
+}
+
+.form-check-input{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+}
+
+input[type='radio']{
+    accent-color: var(--azul-pastel);
+    outline: none;
+}
+
+.form-check-input:checked ~ .selectStage {
+    width: 25%;
+}
+
+/* Boton para iniciar la partida */
+
+[aria-disabled="false"].chosenStage {
+    opacity: 1;
+}
+
+.chosenStage{
+    opacity: 0.5;
+    background-color: var(--verde-claro);
+    background: linear-gradient(0deg, var(--verde-claro) 0%, var(--turqueza) 100%);
+    text-align: center;
+    width: 25%;
+    min-width: 350px;
+    height: max-content;
+    border-radius: 30px;
+    border: 5px transparent solid;
+    padding: 0 30px 20px 30px;
+}
+
+.chosenStage h2{
+    font-size: 35px;
+    color: rgb(31, 51, 71)
+}
+
+.chosenStage img{
+    width: 250px;
+    margin-top: -40px;
+    margin-bottom: 10px;
+}
+
+[aria-disabled="true"] #btnEscenario{
+    cursor:default;
+}
+
+#btnEscenario{
+    display: block;
+    margin: -10px auto 15px auto;
+    padding: 12px;
+    border-radius: 20px;
+    font-size: 30px;
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--turqueza) 100%);
+    color: var(--amarillo-palido);
+    border: 2px solid transparent;
+    box-shadow:-5px 5px var(--azul-pastel), -5px 5px 10px rgb(31, 51, 71);
+    width: max-content;
+    line-height: 140%;
+    font-family: "MuseoModerno";
+    cursor: pointer;
+    transition: 200ms all;
+}
+
+.chosenStage[aria-disabled="false"] #btnEscenario:hover{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    box-shadow:-10px 10px rgb(67, 158, 112), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    color: var(--amarillo-palido);
+    font-size: 35px;
+    transition: 150ms all;
+}
+
+.chosenStage[aria-disabled="false"] #btnEscenario:active{
+    background-image: radial-gradient(100% 100% at 100% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
+    box-shadow:-10px 10px rgb(56, 136, 91), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    font-size: 32px;
+}
+
+
+/* Fondo en movimiento*/
+
+.wrapper {
+  animation: scroll 12s linear infinite;
+  background: url("../Images/Backgrounds/patronAzul.png") var(--azul-pastel);
+  background-blend-mode: multiply;
+  height: 100vh;
+  min-width: 360px;
+  width: 100%;
+  /* perspective: 1000px;
+  perspective-origin: 50% 50%; */
+}
+
+@keyframes scroll {
+  100% {
+    background-position: 0px -475%;
+  }
+}
+
+/* Fallback if the operatring system prefers reduced motion*/
+/* @media (prefers-reduced-motion) {
+  .wrapper {
+    animation: scroll 1000s linear infinite;
+  }
+} */

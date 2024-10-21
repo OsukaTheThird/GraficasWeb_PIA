@@ -1,0 +1,166 @@
+@font-face {
+    font-family: "MajorMonoDisplay";
+    src: url("../Fonts/MajorMonoDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "MuseoModerno";
+    src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
+}
+
+:root {
+  --azul-pastel: rgb(95, 143, 163);
+  --turqueza: rgb(97, 186, 164);
+  --amarillo-palido: rgb(255, 255, 221);
+  --naranja-zanahoria: rgb(255, 155, 43);
+  --verde-claro: rgb(210, 208, 71);
+  font-family: "MuseoModerno";
+  background: url(../Images/Backgrounds/lateralesAzulOscuro.png);
+  background-size: cover;
+}
+
+body{
+    margin: 0;
+}
+
+/* Botón de regresar */
+
+#btnRegresar{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    border: 4px rgb(31, 51, 71) solid ;
+    position: absolute;
+    border-radius: 50%;
+    margin: 20px;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    transition: 150ms all;
+}
+
+#btnRegresar img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnRegresar:hover{
+    height: 110px;
+    width: 110px;
+}
+
+/* Botón de Menú de Inicio */
+
+.inicio{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#btnInicio{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    border: 4px rgb(31, 51, 71) solid ;
+    position: absolute;
+    border-radius: 50%;
+    margin: 20px;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    transition: 150ms all;
+}
+
+#btnInicio img{
+    height: 68%;
+    width: 68%;
+}
+
+#btnInicio:hover{
+    height: 110px;
+    width: 110px;
+}
+
+/* Título */
+
+#idTitulo.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.title{
+    background: linear-gradient(0deg, rgba(210, 208, 7,1) 0%, rgba(255, 155, 43,1) 100%);
+    color: var(--amarillo-palido);
+    border-radius: 30px;
+    border: 10px solid transparent;
+    min-width: max-content;
+    margin: 20px;
+    padding-inline: 10px;
+}
+
+.title h1{
+    margin: 7px;
+    font-family: "MajorMonoDisplay";
+    font-size: 40px;
+}
+
+.title p{
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+
+/* Tabla */
+
+#idRecordTable{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table{
+    width: 60%;
+    border-radius: 30px;
+}
+
+table th{
+    background-color: var(--naranja-zanahoria);
+    background: linear-gradient(0deg, var(--naranja-zanahoria) 0%, var(--verde-claro) 100%);
+    border: 3px transparent solid;
+    font-size: 20px;
+}
+
+td{
+    background: radial-gradient(circle, rgba(210,208,71,0.9) 0%, rgba(97,186,164,0.7) 100%);
+    color: var(--amarillo-palido);
+    font-size: 18px;
+}
+
+td:first-child,
+th:first-child {
+  border-radius: 30px 0 0 30px;
+}
+td:last-child,
+th:last-child {
+  border-radius: 0 30px 30px 0;
+}
+
+.position{
+    font-weight: bold;
+}
+
+.player16{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.player16::before{
+    content: "";
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    margin-left: 10px;
+    background: url("../Images/Gifs/16_Saludando.gif") no-repeat;
+    background-size: contain;
+}
+
+.record{
+    font-style: italic;
+}

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Little Explosives - Landmine
+* source:	https://sketchfab.com/3d-models/little-explosives-landmine-33b362fa7f8246c2aa8fa22e1c73bdca
+* author:	AJVFX (https://sketchfab.com/ajvisualeffects)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Little Explosives - Landmine" (https://sketchfab.com/3d-models/little-explosives-landmine-33b362fa7f8246c2aa8fa22e1c73bdca) by AJVFX (https://sketchfab.com/ajvisualeffects) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

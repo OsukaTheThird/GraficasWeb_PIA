@@ -1,0 +1,310 @@
+@font-face {
+    font-family: "MajorMonoDisplay";
+    src: url("../Fonts/MajorMonoDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "MuseoModerno";
+    src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
+}
+
+:root {
+  --azul-pastel: rgb(95, 143, 163);
+  --turqueza: rgb(95, 185, 163);
+  --amarillo-palido: rgb(255, 255, 221);
+  --naranja-zanahoria: rgb(255, 155, 43);
+  --verde-claro: rgb(210, 208, 71);
+  font-family: "MuseoModerno";
+  background: url(../Images/Backgrounds/horizontalNaranja.png);
+  background-size: cover;
+  background-position: center;
+}
+
+body{
+    margin: 0;
+}
+
+#btnRegresar{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    border: 4px rgb(31, 51, 71) solid ;
+    border-radius: 50%;
+    margin: 20px;
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
+    transition: 150ms all;
+}
+
+#btnRegresar img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnRegresar:hover{
+    height: 110px;
+    width: 110px;
+}
+
+/* Titulo */
+#idTitulo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+#idTitulo h1{
+    background: linear-gradient(0deg, var(--naranja-zanahoria) 0%, var(--verde-claro) 100%);
+    color: var(--amarillo-palido);
+    border-radius: 30px;
+    border: 10px solid transparent;
+    min-width: max-content;
+    padding-inline: 10px;
+    padding-block: 4px;
+    font-family: "MajorMonoDisplay";
+    font-size: 60px;
+}
+
+/* Contenedor */
+
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+/* Botones */
+
+#idCreditosBtns{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: center;
+    padding: 20px;
+}
+
+#idCreditosBtns a:link { 
+  text-decoration: none; 
+} 
+
+#idCreditosBtns button{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--turqueza) 100%);
+    color: var(--amarillo-palido);
+    border: 2px solid transparent;
+    box-shadow:-5px 5px var(--azul-pastel), -5px 5px 10px rgb(31, 51, 71);
+    width: max-content;
+    padding: 12px;
+    margin-block: 15px;
+    font-size: 28px;
+    border-radius: 20px;
+    font-family: "MuseoModerno";
+    transition: 200ms all;
+}
+
+#idCreditosBtns button:hover{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    box-shadow:-10px 10px var(--verde-claro), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    color: var(--amarillo-palido);
+    font-size: 35px;
+    transition: 150ms all;
+}
+
+#idCreditosBtns button:active{
+    background-image: radial-gradient(100% 100% at 100% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
+    box-shadow:-10px 10px var(--azul-pastel), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    font-size: 32px;
+}
+
+/* Listas */
+
+.creditosListas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 62%;
+    margin-right: 30px;
+}
+
+#listaCreadores, #listaModelos, #listaIconos, #listaHUD{
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+}
+
+/* Subtitulos */
+
+#idSubtitulo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+#idSubtitulo h2{
+    background: linear-gradient(0deg, var(--turqueza) 0%, var(--verde-claro) 100%);
+    color: var(--amarillo-palido);
+    border-radius: 30px;
+    border: 5px solid transparent;
+    width: max-content;
+    font-size: 40px;
+    padding-inline: 10px;
+    font-family: "MajorMonoDisplay";
+    margin-bottom: 0;
+    padding-block: 4px;
+}
+
+/* Seccion de Creadores */
+.creatorsRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 2em;
+}
+
+.creator{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    border: 5px transparent solid;
+    border-radius: 30px;
+    padding: 10px 15px;
+}
+
+.creator h2{
+    color: rgb(31, 51, 71);
+    font-size: 25px;
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.creator img{
+    object-fit:cover;
+    width: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.creator h3{
+    font-family: "MajorMonoDisplay";
+    color: var(--amarillo-palido);
+    text-transform: lowercase;
+    font-size: 16px;
+}
+
+.creator h2 + h3{
+    font-family: "MuseoModerno";
+    font-weight: 500;
+    text-transform: none;
+    margin-top: -15px;
+}
+
+#idRama2d::after{
+    content: " ANIMADOR 2D";
+    color:rgb(86, 111, 41);
+}
+
+#idRamaProgra::after{
+    content: " PROGRAMADOR";
+    color: rgb(44, 94, 170);
+}
+
+#idRama3D::after{
+    content: " ANIMADOR 3D";
+    color:brown;
+}
+
+/* Tablas de las listas */
+
+table a{
+    font-style: italic;
+    color: rgb(102, 49, 19);
+}
+
+table a:visited{
+    color: rgb(246, 239, 139);
+}
+
+th{
+    background: linear-gradient(0deg, var(--turqueza) 0%, var(--verde-claro) 100%);
+    color: rgb(31, 51, 71);
+    border: 4px transparent solid;
+    font-size: 20px;
+}
+
+td{
+    background: radial-gradient(circle, rgba(210,208,71,0.9) 0%, rgba(255, 155, 43, 0.7) 100%);
+}
+
+th, td{
+    padding-block: 10px;
+    padding-inline: 15px;
+}
+
+td:first-child,
+th:first-child {
+  border-radius: 30px 0 0 30px;
+}
+td:last-child,
+th:last-child {
+  border-radius: 0 30px 30px 0;
+}
+
+/* Tabla de Modelos */
+
+#idTablaModelos img{
+    height: 118px;
+    width: 118px;
+    display: flex;
+    margin: 2px auto;
+    border-radius: 20px;
+}
+
+/* Tabla de Iconos */
+
+#idTablaIconos img{
+    height: 52px;
+    width: 52px;
+    display: flex;
+    margin: 0 auto;
+}
+
+/* Tabla de HUD */
+
+#idTablaHUD img{
+    width: 80px;
+    display: flex;
+    margin: 0 auto;
+}
+
+/* Scroll */
+.scroll {
+    margin-block: 15px;
+    padding-inline: 30px;
+    padding-block: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 30px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(0deg, var(--azul-pastel) 0%, var(--turqueza) 100%);
+    border: 10px solid transparent;
+    border-radius: 15px;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: radial-gradient(100% 100% at 70% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
+  border-radius: 10px;
+  border: 5px transparent solid;
+}

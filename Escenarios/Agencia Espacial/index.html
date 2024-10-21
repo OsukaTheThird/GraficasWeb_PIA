@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modelos</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from "./three.module.js";
+      import { OrbitControls } from "./OrbitControls.js";
+      import { STLLoader } from "./STLLoader.js";
+      import { GLTFLoader } from "./GLTFLoader.js";
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color("#34495E");
+      const backgroundTexture = new THREE.TextureLoader().load(
+        "./backgrounds/area51.jpg"
+      ); 
+
+      scene.background = backgroundTexture;
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight
+      );
+
+      camera.position.set(0, 5, 20);
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      document.body.appendChild(renderer.domElement);
+
+      const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.3);
+      scene.add(hemisphereLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(1, 5, -1);
+      scene.add(directionalLight);
+
+      const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
+
+      const cube1Material = new THREE.MeshPhongMaterial({ color: "aqua" });
+      const cube1 = new THREE.Mesh(cube1Geometry, cube1Material);
+      cube1.castShadow = true;
+      cube1.position.set(3, 0, 0);
+
+/*       document.onkeydown = function (e) {
+        if (e.keyCode == 37) {
+          cube1.position.x -= 1;
+        }
+
+        if (e.keyCode == 39) {
+          cube1.position.x += 1;
+        }
+
+        if (e.keyCode == 38) {
+          cube1.position.z -= 1;
+        }
+
+        if (e.keyCode == 40) {
+          cube1.position.z += 1;
+        }
+      }; */
+
+      const planeGeometry = new THREE.PlaneGeometry(250, 250);
+      const textureLoader = new THREE.TextureLoader();
+      const terrainTexture = textureLoader.load('./backgrounds/diff.jpg');
+
+      const planeMaterial = new THREE.MeshPhongMaterial({ map: terrainTexture });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.rotateX(-Math.PI / 2);
+      plane.position.set(0, -0.5, 0);
+
+      scene.add(cube1, plane);
+
+      /* const loaderSTL = new STLLoader();
+      loaderSTL.load("deadMouse.stl", function (model) {
+        console.log(model);
+        const material = new THREE.MeshPhongMaterial({ color: "red" });
+        const mesh = new THREE.Mesh(model, material);
+        mesh.rotateX(-Math.PI / 2);
+        mesh.scale.set(0.03, 0.03, 0.03);
+        scene.add(mesh);
+        console.log(mesh);
+      }); */
+
+       
+       /*new GLTFLoader();
+      loaderGLTF.load(
+        "police_officer_redford_-_proto_series_-_free.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.03, 0.03, 0.03);
+          obj.position.set(6, 0, 0);
+          scene.add(obj);
+        }
+      ); */
+
+      const loaderGLTF = new GLTFLoader();
+      loaderGLTF.load(
+        "./antena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.3, 0.3, 0.3);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-23, 0, -18);
+          scene.add(obj);
+        }
+      );
+
+      //JUGADOR
+      const player_1 = new GLTFLoader();
+      player_1.load(
+        "./player16/player16_model.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1, 1, 1);
+          obj.position.set(0, -2, 0);
+          scene.add(obj);
+        }
+      );
+
+      // Manejo del teclado
+      const moveDistance = 0.1; // Distancia que se moverá el modelo por cada tecla presionada.
+
+      function onKeyDown(event) {
+          switch(event.key) {
+              case "ArrowUp":
+                  if (player_1) player_1.position.z -= moveDistance; // Mover hacia adelante
+                  break;
+              case "ArrowDown":
+                  if (player_1) player_1.position.z += moveDistance; // Mover hacia atrás
+                  break;
+              case "ArrowLeft":
+                  if (player_1) player_1.position.x -= moveDistance; // Mover hacia la izquierda
+                  break;
+              case "ArrowRight":
+                  if (player_1) player_1.position.x += moveDistance; // Mover hacia la derecha
+                  break;
+          }
+      }
+
+      // Agregar el evento de escucha para las teclas
+      window.addEventListener('keydown', onKeyDown);
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./antena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.3, 0.3, 0.3);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-18, 0, -18);
+          scene.add(obj);
+        }
+      );
+      
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./building/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.3, 1.3, 1.3);
+          obj.rotation.set(0, 220, 0);
+          obj.position.set(18, 0, -38);
+          scene.add(obj);
+        }
+      );
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./littleexplosive/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.3, 1.3, 1.3);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-18, 0, 18);
+          scene.add(obj);
+        }
+      );
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./littleexplosive/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.3, 1.3, 1.3);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-18, 0, 18);
+          scene.add(obj);
+        }
+      );
+
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./rocket/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.4, 0.4, 0.4);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-15, 0, -29);
+          scene.add(obj);
+        }
+      );
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./rocket/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.4, 0.4, 0.4);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-23, 0, -29);
+          scene.add(obj);
+        }
+      );
+      
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./rocket/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.4, 0.4, 0.4);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-31, 0, -29);
+          scene.add(obj);
+        }
+      );
+      
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./torreantena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.4, 0.4, 0.4);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-10, 0, 18);
+          scene.add(obj);
+        }
+      );
+
+        
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./torreantena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.4, 0.4, 0.4);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(-40, 0, -18);
+          scene.add(obj);
+        }
+      );
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./vigas/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.9, 1.9, 1.9);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(10, 0, 18);
+          scene.add(obj);
+        }
+      );
+
+      
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./vigas/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.9, 1.9, 1.9);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(10, 0, 18);
+          scene.add(obj);
+        }
+      );
+
+
+      new GLTFLoader();
+      loaderGLTF.load(
+        "./mountain/montañas2.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.9, 1.9, 3.0);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(10, 0, -62);
+          scene.add(obj);
+        }
+      );
+
+
+
+      let mixer;
+      const kazurka = new GLTFLoader();
+      kazurka.load("./kazurka/scene.gltf", function (model) {
+        console.log(model);
+        const obj = model.scene;
+        obj.position.set(1, 0, -28);
+        scene.add(obj);
+
+        mixer = new THREE.AnimationMixer(obj);
+        const action = mixer.clipAction(model.animations[1]);
+        action.play();
+      }); 
+
+      const cameraControl = new OrbitControls(camera, renderer.domElement);
+
+      function animate() {
+        if (mixer) {
+          mixer.update(0.01);
+        }
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      animate(); 
+    </script>
+  </body>
+</html>

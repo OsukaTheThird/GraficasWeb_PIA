@@ -1,0 +1,134 @@
+@font-face {
+    font-family: "MajorMonoDisplay";
+    src: url("../Fonts/MajorMonoDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "MuseoModerno";
+    src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
+}
+
+:root {
+  --azul-pastel: rgb(95, 143, 163);
+  --turqueza: rgb(97, 186, 164);
+  --amarillo-palido: rgb(255, 255, 221);
+  --naranja-zanahoria: rgb(255, 155, 43);
+  --verde-claro: rgb(210, 208, 71);
+  font-family: "MuseoModerno";
+  background-color: rgb(26, 35, 45);
+}
+
+body{
+    margin: 0;
+}
+
+.menu.container{
+    background: radial-gradient(circle, rgba(210, 208, 71,0.8) 0%, rgba(97,186,164,0) 90%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: max-content;
+    height: 100vh;
+    padding-inline: 80px;
+    margin: 0 auto;
+}
+
+/* Titulo */
+#idTitulo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+#idTitulo h1{
+    background: linear-gradient(0deg, var(--turqueza) 0%, var(--verde-claro) 100%);
+    color: var(--amarillo-palido);
+    border-radius: 30px;
+    border: 10px solid transparent;
+    min-width: max-content;
+    padding-inline: 10px;
+    font-family: "MajorMonoDisplay";
+    font-size: 60px;
+}
+
+/* Botones */
+
+#idPBotones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#idPBotones a{
+    display: block;
+    text-decoration: none; 
+}
+
+#idPBotones button{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--turqueza) 100%);
+    color: var(--amarillo-palido);
+    border: 2px solid transparent;
+    box-shadow:-5px 5px var(--azul-pastel), -5px 5px 10px rgb(31, 51, 71);
+    width: max-content;
+    padding: 12px;
+    margin-block: 15px;
+    font-size: 28px;
+    border-radius: 20px;
+    font-family: "MuseoModerno";
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 200ms all;
+}
+
+#idPBotones button::before{
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px 0 5px;
+}
+
+#idPBotones button.btn-1::before{
+    width: 50px;
+    height: 50px;
+    margin-right: -3px;
+    margin-left: -5px;
+    background: url("../Images/Iconos/continuar.png") no-repeat;
+    background-size: contain;
+}
+
+#idPBotones button.btn-2::before{
+    width: 40px;
+    height: 40px;
+    background: url("../Images/Iconos/reiniciar.png") no-repeat;
+    background-size: contain;
+}
+
+#idPBotones button.btn-3::before{
+    background: url("../Images/Iconos/opciones.png") no-repeat;
+    background-size: contain;
+}
+
+#idPBotones button.btn-4::before{
+    width: 40px;
+    height: 40px;
+    background: url("../Images/Iconos/inicio.png") no-repeat;
+    background-size: contain;
+}
+
+
+#idPBotones button:hover{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    box-shadow:-10px 10px var(--verde-claro), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    color: var(--amarillo-palido);
+    font-size: 35px;
+    transition: 150ms all;
+}
+
+#idPBotones button:active{
+    background-image: radial-gradient(100% 100% at 100% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
+    box-shadow:-10px 10px var(--azul-pastel), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    font-size: 32px;
+}

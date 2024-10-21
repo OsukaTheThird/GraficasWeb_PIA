@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O.D.N.I | Multijugador</title>
+    <link rel="icon" href="Images/16_favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="CSS/MP_escenarioDesign.css">
+</head>
+<body>
+    <div class="wrapper">
+        <a class="nav-link" href="inicio.html">
+            <button id="btnRegresar" type="button">
+                <img src="Images/Iconos/flecha.png" alt="">
+            </button>
+        </a>
+
+        <a class="nav-link records" href="records.html">
+            <button id="btnRecords" type="button">
+                <img src="Images/Iconos/record.png" alt="">
+            </button>
+        </a>
+
+        <div id="idTitulo" class="container">
+            <div class="title">
+                <h1>ESCENARIO</h1>
+                <p>Selecciona el escenario que jugarás</p>
+            </div>
+        </div>
+        
+        <div id="idEscenarios" class="container">
+            <div class="selectStage" data-id="SP_Stage3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="SP_Stage3" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                </div>
+                <img src="Images/Escenarios/MP_ejeAgroglifos.jpg" class="img-fluid">
+                <div>
+                    <h2>Agroglifos</h2>
+                    <h3 id="idNormal">Dificulad:</h3>
+                    <p>
+                        Un sembradío de maíz el cual ha sido alterado por
+                        unas extrañas formas geométricas. Los
+                        extraterrestres tendrán que competir entre ellos
+                        para encontrar los repuestos entre el sembradío y
+                        así poder reparar una nave.
+                    </p>
+                </div>
+            </div>
+
+            <div class="dataSection" aria-disabled="true">
+                <div class="nameSection">
+                    <div class="popup" onclick="infoPopup()">
+                        <img src="Images/mInicio/Mas.png" alt="">
+                        <span class="popuptext" id="infoPopup">
+                            Ingresa un nombre para identificarte
+                            entre los demás jugadores
+                        </span>
+                    </div>
+
+                    <h2 class="text">Nombre de usuario</h2>
+                    <div id="idRegisterInputs" class="inputbox">
+                        <input id="txtUsername" name="txtUsername" type="text" disabled required>
+                    </div>
+                </div>
+
+                <div class="chosenStage">
+                    <h2>Partida Multijugador</h2>
+                    <div>
+                        <img src="Images/Gifs/16.gif">
+                        <img src="Images/Gifs/16.gif">
+                    </div>
+                    <div>
+                        <img src="Images/Gifs/16.gif">
+                        <img src="Images/Gifs/16.gif">
+                    </div>
+                    <button id="btnEscenario" type="submit" disabled>Iniciar partida</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="JS/MP_escenarioScript.js"></script>
+</body>
+</html>

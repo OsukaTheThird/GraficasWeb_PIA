@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tractor
+* source:	https://sketchfab.com/3d-models/tractor-cdb44565a727480998c6fa80369cc4bb
+* author:	gatostas (https://sketchfab.com/gatostas)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tractor" (https://sketchfab.com/3d-models/tractor-cdb44565a727480998c6fa80369cc4bb) by gatostas (https://sketchfab.com/gatostas) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

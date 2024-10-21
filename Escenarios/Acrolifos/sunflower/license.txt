@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sunflower 3D
+* source:	https://sketchfab.com/3d-models/sunflower-3d-966d0bee6e204d9ca927a601cf85cbc2
+* author:	soufiane oujihi (https://sketchfab.com/sararoujihi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sunflower 3D" (https://sketchfab.com/3d-models/sunflower-3d-966d0bee6e204d9ca927a601cf85cbc2) by soufiane oujihi (https://sketchfab.com/sararoujihi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
