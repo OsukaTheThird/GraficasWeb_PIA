@@ -16,7 +16,7 @@
         <div class="log-in-out">
             <button id="btnLogin" type="button">Iniciar Sesión</button>
             <button id="btnLogout" type="button" style="display: none;">Cerrar Sesión</button>
-            <img id="idImgGoogle" src="Images/Creadores/Fatima.jpg" 
+            <img id="idImgGoogle" src="Images/Iconos/avatar.png" 
             alt="Imagen de Google" style="display: none;">
         </div>
 
@@ -41,6 +41,100 @@
 
     <script src="JS/jquery-3.7.1.min.js"></script>
     <script src="JS/inicioScript.js"></script>
+    
+    <!-- Conexion a la API de Google -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+
+        import {
+            getAuth,
+            signInWithPopup,
+            GoogleAuthProvider,
+            signOut,
+        } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+        } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqyFH3zGUSDf7xvY1v7oWDFdGa5U1DpUw",
+            authDomain: "odni-8a655.firebaseapp.com",
+            databaseURL: "https://odni-8a655-default-rtdb.firebaseio.com",
+            projectId: "odni-8a655",
+            storageBucket: "odni-8a655.firebasestorage.app",
+            messagingSenderId: "850710840105",
+            appId: "1:850710840105:web:58b39fe7fe0cdb08c12d38"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        const db = getDatabase();
+
+        const buttonLogin = document.getElementById("btnLogin");
+        const buttonLogout = document.getElementById("btnLogout");
+
+        let currentUser;
+        async function login() {
+            await signInWithPopup(auth, provider)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    currentUser = result.user;
+
+                    // Mostrar la foto de perfil
+                    const imgElement = document.getElementById("idImgGoogle");
+                    imgElement.src = currentUser.photoURL;
+                    imgElement.style.display = "block";
+
+                    console.log(currentUser);
+                    // writeUserData(currentUser.uid);
+                })
+                .catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+                });
+        }
+
+        buttonLogin.addEventListener("click", async () => {
+            await login();
+        });
+
+        buttonLogout.addEventListener("click", async () => {
+        await signOut(auth)
+            .then(() => {
+                // Limpiar la imagen de perfil
+                const imgAvatar = document.getElementById("idImgGoogle");
+                imgAvatar.src = "Images/Iconos/avatar.png";
+                imgAvatar.style.display = "none";
+
+                // Sign-out successful.
+                console.log("Sign-out successful");
+            })
+            .catch((error) => {
+                // An error happened.
+                console.log("An error happened", error);
+            });
+        });
+    </script>
     
 </body>
 </html>
