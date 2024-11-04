@@ -48,6 +48,63 @@ body{
     position: absolute;
 }
 
+/* Login Logout */
+.log-in-out{
+  position: absolute;
+  left: 85%;
+  top: 20px;
+  display: flex;
+}
+
+.log-in-out button{
+  background-image: radial-gradient(100% 100% at 100% 0, var(--amarillo-palido) 0, var(--azul-pastel) 100%);
+  color: var(--amarillo-palido);
+  border: 2px solid transparent;
+  box-shadow:5px 5px var(--amarillo-palido), 5px 5px 10px rgb(31, 51, 71);
+  width: max-content;
+  padding: 8px;
+  margin-block: 10px;
+  font-size: 18px;
+  border-radius: 20px;
+  font-family: "MuseoModerno";
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 200ms all;
+}
+
+.log-in-out button:hover{
+  background-image: radial-gradient(100% 100% at 100% 0, var(--amarillo-palido) 0, var(--naranja-zanahoria) 100%);
+  box-shadow: 10px 10px var(--turqueza), 15px 15px 10px rgba(31, 51, 71, 0.3);
+  color: var(--amarillo-palido);
+  font-size: 20px;
+  transition: 150ms all;
+}
+
+.log-in-out  button:first-child::after{
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 0 5px 0 10px;
+}
+
+#btnLogin::after{
+    width: 28px;
+    height: 28px;
+    background: url("../Images/Iconos/google.png") no-repeat;
+    background-size: contain;
+}
+
+.log-in-out img{
+  width: 50px;
+  height: 50px;
+  margin-left: 30px;
+  margin-block: 10px;
+  border-radius: 50%;
+  border: 3px solid var(--amarillo-palido);
+}
+
 /* Botones */
 
 .botones{
@@ -57,11 +114,11 @@ body{
     gap: 4em;
 }
 
-#idMenu a:link { 
+.botones a:link { 
   text-decoration: none; 
 } 
 
-#idMenu button{
+.botones button{
     background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--turqueza) 100%);
     color: var(--amarillo-palido);
     border: 2px solid transparent;
@@ -78,7 +135,7 @@ body{
     transition: 200ms all;
 }
 
-#idMenu button::before{
+.botones button::before{
     content: "";
     display: inline-block;
     width: 40px;
@@ -86,14 +143,14 @@ body{
     margin: 0 10px 0 5px;
 }
 
-#idMenu button.btn-1::before{
+.botones button.btn-1::before{
     width: 50px;
     height: 50px;
     background: url("../Images/Iconos/inicioSP.png") no-repeat;
     background-size: contain;
 }
 
-#idMenu button.btn-2::before{
+.botones button.btn-2::before{
     width: 55px;
     height: 55px;
     margin-block: -4px;
@@ -101,20 +158,20 @@ body{
     background-size: contain;
 }
 
-#idMenu button.btn-3::before{
+.botones button.btn-3::before{
     margin-block: 4px;
     background: url("../Images/Iconos/opciones.png") no-repeat;
     background-size: contain;
 }
 
-#idMenu button.btn-4::before{
+.botones button.btn-4::before{
     width: 50px;
     height: 50px;
     background: url("../Images/Iconos/creditos.png") no-repeat;
     background-size: contain;
 }
 
-#idMenu button:hover{
+.botones button:hover{
     background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
     box-shadow:-10px 10px var(--verde-claro), -15px 15px 10px rgba(31, 51, 71, 0.3);
     color: var(--amarillo-palido);
@@ -122,7 +179,7 @@ body{
     transition: 150ms all;
 }
 
-#idMenu button:active{
+.botones button:active{
     background-image: radial-gradient(100% 100% at 100% 0, rgb(210, 208, 71) 0, rgb(246, 130, 36) 100%);
     box-shadow:-10px 10px var(--azul-pastel), -15px 15px 10px rgba(31, 51, 71, 0.3);
     font-size: 32px;

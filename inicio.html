@@ -8,28 +8,18 @@
     <link rel="stylesheet" href="CSS/inicio2Design.css">
 </head>
 <body>
-    <!--<div id="idMIBotones" class="container">
-         <h1>O.D.N.I</h1> 
-        <img id="idLogo" src="Images/LogoV2.png" alt="">
-        <a class="nav-link" href="SP_escenario.html">
-            <button class="btn-1" type="button">Un jugador</button>
-        </a>
-        <a class="nav-link" href="MP_escenario.html">
-            <button class="btn-2" type="button">Multijugador</button>
-        </a>
-        <a class="nav-link" href="opciones.html">
-            <button class="btn-3" type="button">Opciones</button>
-        </a>
-        <a class="nav-link" href="creditos.html">
-            <button class="btn-4">Créditos</button>
-        </a>
-    </div>-->
-
     <div class="logo">
         <img id="idLogo" src="Images/LogoV2.png" alt="">
     </div>
-
+    
     <div id="idMenu" class="container">
+        <div class="log-in-out">
+            <button id="btnLogin" type="button">Iniciar Sesión</button>
+            <button id="btnLogout" type="button" style="display: none;">Cerrar Sesión</button>
+            <img id="idImgGoogle" src="Images/Creadores/Fatima.jpg" 
+            alt="Imagen de Google" style="display: none;">
+        </div>
+
         <div class="botones">
             <a class="nav-link" href="SP_escenario.html">
                 <button class="btn-1" type="button">Un jugador</button>
@@ -49,6 +39,8 @@
 
     <div id="fondo" class="fondo"></div>
 
+    <script src="JS/jquery-3.7.1.min.js"></script>
     <script src="JS/inicioScript.js"></script>
+    
 </body>
 </html>
