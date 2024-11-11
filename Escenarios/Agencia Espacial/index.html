@@ -105,7 +105,7 @@
 
       const antena = new GLTFLoader();
       antena.load(
-        "./antena/scene.gltf",
+        "/Escenarios/modelosGenerales/antena/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(0.3, 0.3, 0.3);
@@ -118,7 +118,7 @@
       //JUGADOR
       const player_1 = new GLTFLoader();
       player_1.load(
-        "./player16/player16_model.gltf",
+        "/Escenarios/modelosGenerales/player/player16_model.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(1, 1, 1);
@@ -152,7 +152,7 @@
 
       const antena2 = new GLTFLoader();
       antena2.load(
-        "./antena/scene.gltf",
+        "/Escenarios/modelosGenerales/antena/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(0.3, 0.3, 0.3);
@@ -174,12 +174,12 @@
         }
       );
 
-      const explosivos = new GLTFLoader();
-      explosivos.load(
-        "./littleexplosive/scene.gltf",
+      const mina = new GLTFLoader(); //cambiarNombre a mina
+      mina.load(
+        "/Escenarios/modelosGenerales/mina/scene.gltf",
         function (model) {
           const obj = model.scene;
-          obj.scale.set(1.3, 1.3, 1.3);
+          obj.scale.set(1.0, 1.0, 1.0);
           obj.rotation.set(0, 180, 0);
           obj.position.set(-18, 0, 18);
           scene.add(obj);
@@ -224,7 +224,7 @@
       
       const torreAntena = new GLTFLoader();
       torreAntena.load(
-        "./torreantena/scene.gltf",
+        "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(0.4, 0.4, 0.4);
@@ -237,7 +237,7 @@
         
       const torreAntena2 = new GLTFLoader();
       torreAntena2.load(
-        "./torreantena/scene.gltf",
+        "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(0.4, 0.4, 0.4);
@@ -249,7 +249,7 @@
 
       const vigas = new GLTFLoader();
       vigas.load(
-        "./vigas/scene.gltf",
+        "/Escenarios/modelosGenerales/vigas/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(1.9, 1.9, 1.9);
@@ -262,7 +262,7 @@
       
       const vigas2 = new GLTFLoader();
       vigas2.load(
-        "./vigas/scene.gltf",
+        "/Escenarios/modelosGenerales/vigas/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(1.9, 1.9, 1.9);
