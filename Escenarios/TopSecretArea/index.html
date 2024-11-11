@@ -12,10 +12,10 @@
   </head>
   <body>
     <script type="module">
-      import * as THREE from "./three.module.js";
-      import { OrbitControls } from "./OrbitControls.js";
-      import { STLLoader } from "./STLLoader.js";
-      import { GLTFLoader } from "./GLTFLoader.js";
+      import * as THREE from "/JS/three.module.js";
+      import { OrbitControls } from "/JS/OrbitControls.js";
+      import { STLLoader } from "/JS/STLLoader.js";
+      import { GLTFLoader } from "/JS/GLTFLoader.js";
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color("#34495E");
@@ -154,8 +154,8 @@
         }
       }; */
 
-      const loaderGLTF = new GLTFLoader();
-      loaderGLTF.load(
+      const soldier = new GLTFLoader();
+      soldier.load(
         "./soldier/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -165,8 +165,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const antena = new GLTFLoader();
+      antena.load(
         "./antena/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -189,8 +189,8 @@
         }
       ); */
       
-      new GLTFLoader();
-      loaderGLTF.load(
+      const base = new GLTFLoader();
+      base.load(
         "./armybase/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -201,8 +201,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const explosivos = new GLTFLoader();
+      explosivos.load(
         "./littleexplosive/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -214,8 +214,8 @@
       );
 
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const cactus = new GLTFLoader();
+      cactus.load(
         "./cactus/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -227,8 +227,8 @@
       );
 
 
-            new GLTFLoader();
-      loaderGLTF.load(
+      const roca = new GLTFLoader();
+      roca.load(
         "./rocks/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -239,8 +239,8 @@
         }
       );
       
-      new GLTFLoader();
-      loaderGLTF.load(
+      const torreAntena = new GLTFLoader();
+      torreAntena.load(
         "./torreantena/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -251,8 +251,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const cajas = new GLTFLoader();
+      cajas.load(
         "./cajas/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -263,8 +263,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const helicopter = new GLTFLoader();
+      helicopter.load(
         "./helicopter/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -275,8 +275,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const molino = new GLTFLoader();
+      molino.load(
         "./molinometal/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -287,8 +287,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const cerca = new GLTFLoader();
+      cerca.load(
         "./woodenfence/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -302,6 +302,7 @@
 
 
       let mixer;
+      
       const kazurka = new GLTFLoader();
       kazurka.load("./kazurka/scene.gltf", function (model) {
         console.log(model);

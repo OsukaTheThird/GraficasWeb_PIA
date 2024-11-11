@@ -12,10 +12,10 @@
   </head>
   <body>
     <script type="module">
-      import * as THREE from "./three.module.js";
-      import { OrbitControls } from "./OrbitControls.js";
-      import { STLLoader } from "./STLLoader.js";
-      import { GLTFLoader } from "./GLTFLoader.js";
+      import * as THREE from "/JS/three.module.js";
+      import { OrbitControls } from "/JS/OrbitControls.js";
+      import { STLLoader } from "/JS/STLLoader.js";
+      import { GLTFLoader } from "/JS/GLTFLoader.js";
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color("#34495E");
@@ -153,8 +153,8 @@
         }
       };
 
-      const loaderGLTF = new GLTFLoader();
-      loaderGLTF.load(
+      const cajas = new GLTFLoader();
+      cajas.load(
         "./cajas/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -164,8 +164,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const acrolifos = new GLTFLoader();
+      acrolifos.load(
         "./cropcircles/cropcircles1.glb",
         function (model) {
           const obj = model.scene;
@@ -176,8 +176,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const granja = new GLTFLoader();
+      granja.load(
         "./granja/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -187,9 +187,21 @@
           scene.add(obj);
         }
       );
+
+      const granja2 = new GLTFLoader();
+      granja2.load(
+        "./granja2/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.9, 1.9, 1.9);
+          obj.rotation.set(0, 180, 0);
+          obj.position.set(30, 0, -18);
+          scene.add(obj);
+        }
+      );
       
-      new GLTFLoader();
-      loaderGLTF.load(
+      const arroz = new GLTFLoader();
+      arroz.load(
         "./ricestraw/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -200,8 +212,8 @@
         }
       );
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const explosivos = new GLTFLoader();
+      explosivos.load(
         "./littleexplosive/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -213,8 +225,8 @@
       );
 
 
-      new GLTFLoader();
-      loaderGLTF.load(
+      const cohete= new GLTFLoader();
+      cohete.load(
         "./rocket/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -226,8 +238,8 @@
       );
 
       
-      new GLTFLoader();
-      loaderGLTF.load(
+      const torreAntena = new GLTFLoader();
+      torreAntena.load(
         "./torreantena/scene.gltf",
         function (model) {
           const obj = model.scene;
@@ -238,7 +250,7 @@
         }
       );
 
-      new GLTFLoader();
+      /* new GLTFLoader();
       loaderGLTF.load(
         "./torreantena/scene.gltf",
         function (model) {
@@ -248,22 +260,10 @@
           obj.position.set(68, 0, -38);
           scene.add(obj);
         }
-      );
+      ); */
 
-      new GLTFLoader();
-      loaderGLTF.load(
-        "./granja2/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1.9, 1.9, 1.9);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(30, 0, -18);
-          scene.add(obj);
-        }
-      );
-
-      new GLTFLoader();
-      loaderGLTF.load(
+      const tractor= new GLTFLoader();
+      tractor.load(
         "./tractor/scene.gltf",
         function (model) {
           const obj = model.scene;
