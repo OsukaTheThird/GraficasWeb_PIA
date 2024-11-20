@@ -1,0 +1,80 @@
+@font-face {
+    font-family: "MuseoModerno";
+    src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
+}
+
+:root {
+  --azul-pastel: rgb(95, 143, 163);
+  --turqueza: #61baa4;
+  --amarillo-palido: rgb(255, 255, 221);
+  --naranja-zanahoria: rgb(255, 155, 43);
+  --verde-claro: rgb(210, 208, 71);
+  --azul-oscuro: rgb(31, 51, 71);
+}
+
+body{
+    margin: 0;
+    background-color: var(--azul-oscuro);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Imagenes */
+
+#idGanar{
+    background-image: url("../Images/Resultados/ganador.png");
+}
+
+#idPerder{
+    background-image: url("../Images/Resultados/perdedor.png");
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 75%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+a:link{
+    text-decoration: none;
+}
+
+button{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--turqueza) 100%);
+    color: var(--amarillo-palido);
+    border: 2px solid transparent;
+    box-shadow:-5px 5px var(--azul-pastel), -5px 5px 10px rgb(31, 51, 71);
+    width: max-content;
+    padding: 12px;
+    margin-block: 15px;
+    font-size: 28px;
+    border-radius: 20px;
+    font-family: "MuseoModerno";
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 200ms all;
+}
+
+button:hover{
+    background-image: radial-gradient(100% 100% at 100% 0, var(--verde-claro) 0, var(--naranja-zanahoria) 100%);
+    box-shadow:-10px 10px var(--verde-claro), -15px 15px 10px rgba(31, 51, 71, 0.3);
+    color: var(--amarillo-palido);
+    font-size: 35px;
+    transition: 150ms all;
+}
+
+/* Imagenes */
