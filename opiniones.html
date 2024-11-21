@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <form method="GET" action="#">
+        <form id="idFormOpinion">
             <div id="idTitulo" class="container">
                 <div class="title">
                     <h1>¡ Gracias por jugar !</h1>
@@ -40,5 +40,64 @@
             </div>
         </form>
     </div>
+
+    <!-- JS -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '797384595805742',  // Tu app ID
+                xfbml: true,
+                version: 'v21.0'  // Asegúrate de usar una versión válida
+            });
+
+            // El SDK ya está listo para usar
+            console.log("SDK de Facebook cargado correctamente");
+        };
+
+        // Aquí debes colocar el token de acceso de la página de Facebook directamente
+        var pageAccessToken = "EAALVN5GVFi4BOZBFaZAhdoWOSYsHPMY70vkwwaUltZCr1VX1ZAvuoqmW2gS62j6Jsp41S7hsCVBltbUnR3Hzg8ZBZCpZCFcRKu1NqnXq53PI3Omhs3bbfKOP10wPHL8RGfZAoc3gV7nRBa14BX6yKYeV6NUaoavf1o8OTxzCDOOwKqQoRh8RmWPYK80GUYFZC0bZBx5DMOEDD0kKrqSLuAMsIDuWABNaB5txTB";
+        var pageId = "498939006633093";
+
+        document.getElementById("btnEnviar").addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Obtener el contenido de la opinión
+            var opinionText = document.getElementById("txtOpinion").value;
+
+            if (opinionText.trim() === "") {
+                alert("Por favor, ingresa tu opinión.");
+                return;
+            }
+
+            // Realizar la publicación en la página
+            FB.api(
+                `/${pageId}/feed`,
+                "POST",
+                {
+                    message: opinionText,  // El texto de la opinión
+                    access_token: pageAccessToken,  // El token de la página
+                },
+                function(response) {
+                    if (response && !response.error) {
+                        console.log("Post exitoso:", response);
+                        alert("Tu opinión ha sido enviada con éxito.");
+
+                        document.getElementById("txtOpinion").value = "";
+                        window.location.href = "inicio.html";
+                    } else {
+                        console.error("Error al publicar:", response.error);
+                        alert("Hubo un error al enviar tu opinión.");
+                    }
+                }
+            );
+        });
+    </script>
+
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
 </body>
 </html>
