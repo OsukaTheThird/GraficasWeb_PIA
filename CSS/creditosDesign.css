@@ -97,7 +97,7 @@ body{
     box-shadow:-5px 5px var(--azul-pastel), -5px 5px 10px rgb(31, 51, 71);
     width: max-content;
     padding: 12px;
-    margin-block: 15px;
+    margin-block: 10px;
     font-size: 28px;
     border-radius: 20px;
     font-family: "MuseoModerno";
@@ -129,7 +129,7 @@ body{
     margin-right: 30px;
 }
 
-#listaCreadores, #listaModelos, #listaIconos, #listaHUD{
+#listaCreadores, #listaModelos, #listaIconos, #listaAudio, #listaHUD{
     flex-direction: column;
     justify-content: center;
     height: 90vh;

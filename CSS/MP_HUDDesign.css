@@ -99,10 +99,20 @@ body{
     color: var(--amarillo-palido);
     border-radius: 30px;
     border: 10px solid transparent;
-    width: max-content;
+    width: 250px;
     padding-inline: 10px;
     margin-top: -2px;
     font-size: 36px;
+    text-align: center;
+    line-height: 57px;
+    white-space: nowrap;
+    transform: translateZ(0);
+    will-change: transform;
+    
+    /* Suavizado de texto */
+    -webkit-font-smoothing: antialiased; /* Para Safari */
+    -moz-osx-font-smoothing: grayscale; /* Para Firefox */
+    text-rendering: optimizeLegibility; /* Para mejorar la legibilidad */
 }
 
 #idVida{
