@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modelos</title>
+    <title>Acrolifos</title>
     <style>
       body {
         margin: 0;
@@ -111,63 +111,76 @@
         console.log(mesh);
       });
 
-      const player_1 = new GLTFLoader();
-      player_1.load(
+      let Player1;
+      const LoaderGLTF = new GLTFLoader();
+      LoaderGLTF.load(
         "/Escenarios/modelosGenerales/player/player16_model.gltf",
         function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.position.set(0, -2, 0);
-          scene.add(obj);
+          Player1 = model.scene;
+          Player1.scale.set(1, 1, 1);
+          Player1.position.set(0, -2, 0);
+          scene.add(Player1);
+        }
+      );
+
+    
+      let Player2;
+      new GLTFLoader();
+      LoaderGLTF.load(
+        "/Escenarios/modelosGenerales/player/player16_model.gltf",
+        function (model) {
+          Player2 = model.scene;
+          Player2.scale.set(1, 1, 1);
+          Player2.position.set(10, -2, 0);
+          scene.add(Player2);
         }
       );
 
       document.onkeydown = function (e) {
-        if (e.keyCode == 65) { //izquierda
-          player_1.position.x -= 1;
+        if (Player1){
+         // derecha
+         if (e.keyCode == 39) { //izquierda
+          Player1.position.x = Player1.position.x += 1;
         }
-
-        if (e.keyCode == 39) { //derecha 
-          player_1.position.x += 1;
+        // izquierda
+        if (e.keyCode == 37) { //derecha
+          Player1.position.x = Player1.position.x -= 1; // Verificar que el modelo esté cargado
+          }
+  
+          if (e.keyCode == 38) { //arriba
+            Player1.position.z = Player1.position.z -= 1;
+          }
+          // izquierda
+          if (e.keyCode == 40) { //abajo
+            Player1.position.z = Player1.position.z += 1; // Verificar que el modelo esté cargado
+            }
+  
+        
+  
+  
+      }  
+  
+      if (Player2){
+        
+        if (e.keyCode == 68) { //izquierda
+         Player2.position.x = Player2.position.x += 1;
+       }
+       // izquierda
+       if (e.keyCode == 65) { //derecha
+         Player2.position.x = Player2.position.x -= 1; // Verificar que el modelo esté cargado
+         }
+  
+         if (e.keyCode == 87) { //arriba
+           Player2.position.z = Player2.position.z -= 1;
+         }
+         // izquierda
+         if (e.keyCode == 83) { //abajo
+           Player2.position.z = Player2.position.z += 1; // Verificar que el modelo esté cargado
+           }
+  
         }
-
-        if (e.keyCode == 87) { //arriba
-          player_1.position.z -= 1;
-        }
-
-        if (e.keyCode == 83) { //abajo
-          player_1.position.z += 1;
-        }
-      };
-
-      const player_2 = new GLTFLoader();
-      player_2.load(
-        "/Escenarios/modelosGenerales/player/player16_model.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.position.set(10, -2, 0);
-          scene.add(obj);
-        }
-      );
-
-      document.onkeydown = function (e) {
-        if (e.keyCode == 37) { //izquierda
-          player_2.position.x -= 1;
-        }
-
-        if (e.keyCode == 39) { //derecha
-          player_2.position.x += 1;
-        }
-
-        if (e.keyCode == 38) { //arriba
-          player_2.position.z -= 1;
-        }
-
-        if (e.keyCode == 40) { //abajo
-          player_2.position.z += 1;
-        }
-      };
+  
+      }
 /*       const acrolifos = new GLTFLoader();
       acrolifos.load(
         "./cropcircles/cropcircles1.glb",
