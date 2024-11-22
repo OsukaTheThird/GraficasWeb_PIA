@@ -1,0 +1,11 @@
+Model Information:
+* title:	Escudo
+* source:	https://sketchfab.com/3d-models/escudo-041ee3f9d8ce453dbdc1a696431041c6
+* author:	Allvis (https://sketchfab.com/allvis)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Escudo" (https://sketchfab.com/3d-models/escudo-041ee3f9d8ce453dbdc1a696431041c6) by Allvis (https://sketchfab.com/allvis) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
