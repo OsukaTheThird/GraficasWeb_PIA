@@ -6,28 +6,106 @@ window.addEventListener('load', function() {
     var audioPlayerAgroglifos = document.getElementById('idAudioAgroglifos');  // Música del escenario "Agroglifos"
 
     // Verificar si la música está habilitada desde localStorage
+    // var musicEnabled = localStorage.getItem('musicEnabled');
+    // if (musicEnabled === 'true') {
+    //     // Si la música está habilitada, reproducirla solo si el elemento existe
+    //     if (audioPlayerMenu) audioPlayerMenu.play();
+    //     if (audioPlayerOpinion) audioPlayerOpinion.play();
+    //     if (audioPlayerAgencia) audioPlayerAgencia.play();
+    //     if (audioPlayerTSA) audioPlayerTSA.play();
+    //     if (audioPlayerAgroglifos) audioPlayerAgroglifos.play();
+    // } else {
+    //     // Si la música está deshabilitada, pausarla solo si el elemento existe
+    //     if (audioPlayerMenu) audioPlayerMenu.pause();
+    //     if (audioPlayerOpinion) audioPlayerOpinion.pause();
+    //     if (audioPlayerAgencia) audioPlayerAgencia.pause();
+    //     if (audioPlayerTSA) audioPlayerTSA.pause();
+    //     if (audioPlayerAgroglifos) audioPlayerAgroglifos.pause();
+    // }
+
+    // // Establecer volúmenes para las diferentes pistas de audio solo si existen
+    // if (audioPlayerMenu) audioPlayerMenu.volume = 0.2;
+    // if (audioPlayerOpinion) audioPlayerOpinion.volume = 0.5;
+    // if (audioPlayerAgencia) audioPlayerAgencia.volume = 0.6;
+    // if (audioPlayerTSA) audioPlayerTSA.volume = 0.8;
+
+    // if (audioPlayerMenu) {
+    //     audioPlayerMenu.muted = true;
+    //     audioPlayerMenu.play().then(() => {
+    //         // Si la reproducción se inicia correctamente, podemos ajustar el volumen
+    //         if (localStorage.getItem('musicEnabled') === 'true') {
+    //             audioPlayerMenu.muted = false;  // Desmutear si la música está habilitada
+    //             audioPlayerMenu.volume = 0.2; // Ajustar el volumen
+    //         }
+    //     }).catch(error => {
+    //         console.log("Error al intentar reproducir la música automáticamente:", error);
+    //     });
+    // }
+
     var musicEnabled = localStorage.getItem('musicEnabled');
     if (musicEnabled === 'true') {
         // Si la música está habilitada, reproducirla solo si el elemento existe
-        if (audioPlayerMenu) audioPlayerMenu.play();
-        if (audioPlayerOpinion) audioPlayerOpinion.play();
-        if (audioPlayerAgencia) audioPlayerAgencia.play();
-        if (audioPlayerTSA) audioPlayerTSA.play();
-        if (audioPlayerAgroglifos) audioPlayerAgroglifos.play();
+        if (audioPlayerMenu) {
+            audioPlayerMenu.play();
+            audioPlayerMenu.volume = 0.2;
+        } 
     } else {
         // Si la música está deshabilitada, pausarla solo si el elemento existe
-        if (audioPlayerMenu) audioPlayerMenu.pause();
-        if (audioPlayerOpinion) audioPlayerOpinion.pause();
-        if (audioPlayerAgencia) audioPlayerAgencia.pause();
-        if (audioPlayerTSA) audioPlayerTSA.pause();
-        if (audioPlayerAgroglifos) audioPlayerAgroglifos.pause();
+        if (audioPlayerMenu) {
+            audioPlayerMenu.pause();
+        } 
     }
 
-    // Establecer volúmenes para las diferentes pistas de audio solo si existen
-    if (audioPlayerMenu) audioPlayerMenu.volume = 0.2;
-    if (audioPlayerOpinion) audioPlayerOpinion.volume = 0.5;
-    if (audioPlayerAgencia) audioPlayerAgencia.volume = 0.6;
-    if (audioPlayerTSA) audioPlayerTSA.volume = 0.8;
+    document.body.addEventListener('click', function () { 
+
+        if (audioPlayerOpinion) {
+            audioPlayerOpinion.muted = true;
+            audioPlayerOpinion.play().then(() => {
+                if (localStorage.getItem('musicEnabled') === 'true') {
+                    audioPlayerOpinion.muted = false;
+                    audioPlayerOpinion.volume = 0.5;
+                }
+            }).catch(error => {
+                console.log("Error al intentar reproducir la música automáticamente:", error);
+            });
+        }
+
+        if (audioPlayerAgencia) {
+            audioPlayerAgencia.muted = true;
+            audioPlayerAgencia.play().then(() => {
+                if (localStorage.getItem('musicEnabled') === 'true') {
+                    audioPlayerAgencia.muted = false;
+                    audioPlayerAgencia.volume = 0.6;
+                }
+            }).catch(error => {
+                console.log("Error al intentar reproducir la música automáticamente:", error);
+            });
+        }
+
+        if (audioPlayerTSA) {
+            audioPlayerTSA.muted = true;
+            audioPlayerTSA.play().then(() => {
+                if (localStorage.getItem('musicEnabled') === 'true') {
+                    audioPlayerTSA.muted = false;
+                    audioPlayerTSA.volume = 0.8;
+                }
+            }).catch(error => {
+                console.log("Error al intentar reproducir la música automáticamente:", error);
+            });
+        }
+
+        if (audioPlayerAgroglifos) {
+            audioPlayerAgroglifos.muted = true;
+            audioPlayerAgroglifos.play().then(() => {
+                if (localStorage.getItem('musicEnabled') === 'true') {
+                    audioPlayerAgroglifos.muted = false;
+                }
+            }).catch(error => {
+                console.log("Error al intentar reproducir la música automáticamente:", error);
+            });
+        }
+    });
+    
 
     // REPRODUCCION DE LA CANCION DEL MENU EN MÁS DE UNA PESTAÑA SIN REINICIARSE
     if (audioPlayerMenu) {
