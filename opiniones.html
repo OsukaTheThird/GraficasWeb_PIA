@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="CSS/opinionesDesign.css">
 </head>
 <body>
+    <!-- Musica de Fondo -->
+    <audio id="idAudioOpinion" loop autoplay>
+        <source src="Audio/Music/Opinion.mp3" type="audio/mp3">
+        Tu navegador no soporta el formato de audio.
+    </audio>
+
     <div class="wrapper">
         <form id="idFormOpinion">
             <div id="idTitulo" class="container">
@@ -42,6 +48,8 @@
     </div>
 
     <!-- JS -->
+    <script src="JS/musicaScript.js"></script>
+
     <script>
         window.fbAsyncInit = function() {
             FB.init({

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="CSS/opcionesDesign.css">
 </head>
 <body>
+    <!-- Musica de Fondo -->
+    <audio id="idAudioMenu" loop autoplay>
+        <source src="Audio/Music/Menu.mp3" type="audio/mp3">
+        Tu navegador no soporta el formato de audio.
+    </audio>
+
     <a class="nav-link" href="inicio.html">
         <button id="btnRegresar" type="button">
             <img src="Images/Iconos/flecha.png" alt="">
@@ -25,18 +31,21 @@
         <div class="opciones">
             <h2 id="idSonido">Efectos de sonido</h2>
             <label class="switch">
-                <input id="checkboxSound" type="checkbox" checked>
+                <input id="checkboxSound" type="checkbox">
                 <span class="slider round"></span>
             </label>
         </div>
         <div class="opciones">
             <h2 id="idMusica">Música</h2>
             <label class="switch">
-                <input id="checkboxMusic" type="checkbox" checked>
+                <input id="checkboxMusic" type="checkbox">
                 <span class="slider round"></span>
             </label>
         </div>
     </div>
 
+    <!-- JS -->
+    <!-- <script src="JS/opcionesScript.js"></script> -->
+    <script src="JS/musicaScript.js"></script>
 </body>
 </html>

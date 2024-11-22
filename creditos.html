@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="CSS/creditosDesign.css">
 </head>
 <body>
+    <!-- Musica de Fondo -->
+    <audio id="idAudioMenu" loop autoplay>
+        <source src="Audio/Music/Menu.mp3" type="audio/mp3">
+        Tu navegador no soporta el formato de audio.
+    </audio>
+
     <a class="nav-link" href="inicio.html">
         <button id="btnRegresar" type="button">
             <img src="Images/Iconos/flecha.png" alt="">
@@ -28,6 +34,9 @@
             </a>
             <a class="nav-link" href="#">
                 <button id="btnIconos" type="button">Íconos</button>
+            </a>
+            <a class="nav-link" href="#">
+                <button id="btnAudio" type="button">Audio</button>
             </a>
             <a class="nav-link" href="#">
                 <button id="btnHUD" type="button">HUD</button>
@@ -247,6 +256,77 @@
                 </div>
             </div>
 
+            <div id="listaAudio">
+                <div id="idSubtitulo">
+                    <h2>AUDIO</h2>
+                </div>
+                <div class="scroll">
+                    <table id="idTablaAudio">
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Uso</th>
+                            <th>Nombre</th>
+                            <th id="colLink">Hecho por</th>
+                        </tr>
+                        <tr>
+                            <td>Música</td>
+                            <td>Menú de Inicio</td>
+                            <td>8 Bit Space Groove!</td>
+                            <td>
+                                HeatleyBros - Royalty Free Video Game Music: 
+                                <a href="https://www.youtube.com/watch?v=Bok8nLviThg">
+                                    https://www.youtube.com/watch?v=Bok8nLviThg
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Música</td>
+                            <td>Escenario "Agencia Espacial"</td>
+                            <td>8 Bit Hero!</td>
+                            <td>
+                                HeatleyBros - Royalty Free Video Game Music: 
+                                <a href="https://www.youtube.com/watch?v=Fa_9fh_vML0">
+                                    https://www.youtube.com/watch?v=Fa_9fh_vML0
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Música</td>
+                            <td>Escenario "TOP SECRET AREA"</td>
+                            <td>8 Bit Halloween</td>
+                            <td>
+                                HeatleyBros - Royalty Free Video Game Music: 
+                                <a href="https://www.youtube.com/watch?v=Z5P8Fm9dcp4">
+                                    https://www.youtube.com/watch?v=Z5P8Fm9dcp4
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Música</td>
+                            <td>Escenario "Agroglifos"</td>
+                            <td>Otherworldly Foe</td>
+                            <td>
+                                Earthbound (OST): 
+                                <a href="https://www.youtube.com/watch?v=iSkwblpGnAI">
+                                    https://www.youtube.com/watch?v=iSkwblpGnAI
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Música</td>
+                            <td>Pantalla de Opiniones</td>
+                            <td>Palmtree Panic (Past) 8-Bit (Sonic CD Remix)</td>
+                            <td>
+                                Weaponized Knight: 
+                                <a href="https://www.youtube.com/watch?v=mtVmgFN6E98">
+                                    https://www.youtube.com/watch?v=mtVmgFN6E98
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             <div id="listaHUD">
                 <div id="idSubtitulo">
                     <h2>HUD</h2>
@@ -285,6 +365,8 @@
         </div>
     </div>
 
+    <!-- JS -->
     <script src="JS/creditosScript.js"></script>
+    <script src="JS/musicaScript.js"></script>
 </body>
 </html>
