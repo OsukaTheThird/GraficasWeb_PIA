@@ -103,18 +103,6 @@
         }
       ); */
 
-      const antena = new GLTFLoader();
-      antena.load(
-        "/Escenarios/modelosGenerales/antena/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.3, 0.3, 0.3);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(-23, 0, -18);
-          scene.add(obj);
-        }
-      );
-
       //JUGADOR
       const player_1 = new GLTFLoader();
       player_1.load(
@@ -156,25 +144,49 @@
         function (model) {
           const obj = model.scene;
           obj.scale.set(0.3, 0.3, 0.3);
+          obj.rotation.set(0, 95, 0);
+          obj.position.set(-43, 0, 40);
+          scene.add(obj);
+        }
+      );
+
+      const antena = new GLTFLoader();
+      antena.load(
+        "/Escenarios/modelosGenerales/antena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.3, 0.3, 0.3);
           obj.rotation.set(0, 180, 0);
-          obj.position.set(-18, 0, -18);
+          obj.position.set(35, 0, -20);
           scene.add(obj);
         }
       );
       
       const construccion = new GLTFLoader();
       construccion.load(
-        "./building/scene.gltf",
+        "./building/building_rotated.glb",
         function (model) {
           const obj = model.scene;
           obj.scale.set(1.3, 1.3, 1.3);
-          obj.rotation.set(0, 220, 0);
-          obj.position.set(18, 0, -38);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(40, 0, 20);
           scene.add(obj);
         }
       );
 
-      const mina = new GLTFLoader(); //cambiarNombre a mina
+      const construccion_2 = new GLTFLoader();
+      construccion.load(
+        "./fut_building/futuristic_building.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1, 1, 1);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(15, -1, -38);
+          scene.add(obj);
+        }
+      );
+
+/*       const mina = new GLTFLoader(); //cambiarNombre a mina
       mina.load(
         "/Escenarios/modelosGenerales/mina/scene.gltf",
         function (model) {
@@ -184,40 +196,28 @@
           obj.position.set(-18, 0, 18);
           scene.add(obj);
         }
-      );
+      ); */
 
       const cohete = new GLTFLoader();
       cohete.load(
-        "./rocket/scene.gltf",
+        "./rocket/transbordador.glb",
         function (model) {
           const obj = model.scene;
-          obj.scale.set(0.4, 0.4, 0.4);
+          obj.scale.set(1, 1, 1);
           obj.rotation.set(0, 180, 0);
-          obj.position.set(-15, 0, -29);
+          obj.position.set(-50, 0, -29);
           scene.add(obj);
         }
       );
 
-      const cohete2 = new GLTFLoader();
-      cohete2.load(
-        "./rocket/scene.gltf",
+      const soporte = new GLTFLoader();
+      soporte.load(
+        "./rocket-stand/stand.glb",
         function (model) {
           const obj = model.scene;
-          obj.scale.set(0.4, 0.4, 0.4);
+          obj.scale.set(1, 1, 1);
           obj.rotation.set(0, 180, 0);
-          obj.position.set(-23, 0, -29);
-          scene.add(obj);
-        }
-      );
-      
-      const cohete3 = new GLTFLoader();
-      cohete3.load(
-        "./rocket/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.4, 0.4, 0.4);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(-31, 0, -29);
+          obj.position.set(-50, 0, -29);
           scene.add(obj);
         }
       );
@@ -229,13 +229,13 @@
           const obj = model.scene;
           obj.scale.set(0.4, 0.4, 0.4);
           obj.rotation.set(0, 180, 0);
-          obj.position.set(-10, 0, 18);
+          obj.position.set(-50, 0, 30);
           scene.add(obj);
         }
       );
 
         
-      const torreAntena2 = new GLTFLoader();
+/*       const torreAntena2 = new GLTFLoader();
       torreAntena2.load(
         "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
         function (model) {
@@ -245,7 +245,7 @@
           obj.position.set(-40, 0, -18);
           scene.add(obj);
         }
-      );
+      ); */
 
       const vigas = new GLTFLoader();
       vigas.load(
@@ -254,7 +254,7 @@
           const obj = model.scene;
           obj.scale.set(1.9, 1.9, 1.9);
           obj.rotation.set(0, 180, 0);
-          obj.position.set(10, 0, 18);
+          obj.position.set(0, 0, -30);
           scene.add(obj);
         }
       );
@@ -266,8 +266,8 @@
         function (model) {
           const obj = model.scene;
           obj.scale.set(1.9, 1.9, 1.9);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(10, 0, 18);
+          obj.rotation.set(0, 100, 0);
+          obj.position.set(-10, 0, -35);
           scene.add(obj);
         }
       );
