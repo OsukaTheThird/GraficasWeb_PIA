@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>O.D.N.I | Agencia Espacial</title>
     <link rel="icon" href="../../Images/16_favicon.ico" type="image/x-icon"/>
-    
-    <style>
-      body {
-        margin: 0;
-        overflow:hidden;
-      }
-    </style>
-
+    <link rel="stylesheet" href="../../CSS/agencia_TSADesign.css">
   </head>
 
   <body>
@@ -24,6 +17,14 @@
 
     <!-- Coordenadas -->
     <div id="coordinates">Coordenadas: (0, 0, 0)</div>
+
+    <!-- Stats del juego -->
+    <div id="idVidaPlayer">Vida: 90</div>
+    <div id="idNaveContador">Contador: 0</div>
+
+    <!-- Pantallas de Ganar y Perder -->
+    <div id="idGanar"></div>
+    <div id="idPerder"></div>
 
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
@@ -62,30 +63,33 @@
       directionalLight.position.set(1, 5, -1);
       scene.add(directionalLight);
 
-      const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
+      // const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
 
-      const cube1Material = new THREE.MeshPhongMaterial({ color: "aqua" });
-      const cube1 = new THREE.Mesh(cube1Geometry, cube1Material);
-      cube1.castShadow = true;
-      cube1.position.set(3, 0, 0);
+      // const cube1Material = new THREE.MeshPhongMaterial({ color: "aqua" });
+      // const cube1 = new THREE.Mesh(cube1Geometry, cube1Material);
+      // cube1.castShadow = true;
+      // cube1.position.set(3, 0, 0);
 
-/*       document.onkeydown = function (e) {
-        if (e.keyCode == 37) {
-          cube1.position.x -= 1;
-        }
+      // document.onkeydown = function (e) {
+      //   if (e.keyCode == 37) {
+      //     cube1.position.x -= 1;
+      //   }
 
-        if (e.keyCode == 39) {
-          cube1.position.x += 1;
-        }
+      //   if (e.keyCode == 39) {
+      //     cube1.position.x += 1;
+      //   }
 
-        if (e.keyCode == 38) {
-          cube1.position.z -= 1;
-        }
+      //   if (e.keyCode == 38) {
+      //     cube1.position.z -= 1;
+      //   }
 
-        if (e.keyCode == 40) {
-          cube1.position.z += 1;
-        }
-      }; */
+      //   if (e.keyCode == 40) {
+      //     cube1.position.z += 1;
+      //   }
+      // };
+
+      // PLANO DEL TERRENO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
 
       const planeGeometry = new THREE.PlaneGeometry(250, 250);
       const textureLoader = new THREE.TextureLoader();
@@ -96,30 +100,28 @@
       plane.rotateX(-Math.PI / 2);
       plane.position.set(0, -0.5, 0);
 
-      scene.add(cube1, plane);
+      // scene.add(cube1, plane);
+      scene.add(plane);
 
-      /* const loaderSTL = new STLLoader();
-      loaderSTL.load("deadMouse.stl", function (model) {
-        console.log(model);
-        const material = new THREE.MeshPhongMaterial({ color: "red" });
-        const mesh = new THREE.Mesh(model, material);
-        mesh.rotateX(-Math.PI / 2);
-        mesh.scale.set(0.03, 0.03, 0.03);
-        scene.add(mesh);
-        console.log(mesh);
-      }); */
+      // DECLARACION DE VARIABLES, FLAGS Y CONTADORES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      let life = 90;
+      const lifeElement = document.getElementById('idVidaPlayer');
+      let damageApplied = false; 
+      let isInContact = false;
 
-       
-       /*new GLTFLoader();
-      loaderGLTF.load(
-        "police_officer_redford_-_proto_series_-_free.glb",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.03, 0.03, 0.03);
-          obj.position.set(6, 0, 0);
-          scene.add(obj);
-        }
-      ); */
+      let pieces = 0;
+      const piecesElement = document.getElementById('idNaveContador');
+
+      var navePieza1 = false;
+      var navePieza2 = false;
+      var navePieza3 = false;
+      
+      var perdiste = false;
+
+      // DECLARACION DE EFECTOS DE SONIDO
+      var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
 
       // JUGADOR
       //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -179,18 +181,77 @@
         }  
    
       }
-     
-      const antena2 = new GLTFLoader();
-      antena2.load(
-        "/Escenarios/modelosGenerales/antena/scene.gltf",
+
+      // MODELOS QUE GENERAN DAÑO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      const objDamage = scene.getObjectByName("objDamage1");
+      const torreAntena = new GLTFLoader();
+      torreAntena.load(
+        "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
         function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.3, 0.3, 0.3);
-          obj.rotation.set(0, 95, 0);
-          obj.position.set(-43, 0, 40);
-          scene.add(obj);
+          const objDamageTorre = model.scene;
+          objDamageTorre.scale.set(0.4, 0.4, 0.4);
+          objDamageTorre.rotation.set(0, 180, 0);
+          objDamageTorre.position.set(-50, 0, 30);
+          objDamageTorre.name = "objDamage1";
+          scene.add(objDamageTorre);
         }
       );
+
+      // FUNCION DE COLISIONES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      function detectCollision(object1, object2) {
+        const box1 = new THREE.Box3().setFromObject(object1);
+        const box2 = new THREE.Box3().setFromObject(object2);
+
+        // Comprueba si los bounding boxes (cajas delimitadoras) se superponen
+        return box1.intersectsBox(box2);
+      }
+
+      // COLISIONES ENTRE MODELOS
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+      function checkCollisions() {
+        // COLISIONES DE BAJA DE VIDA
+        //-------Antena---------
+        const jugadorCol = scene.getObjectByName("player");
+        const objDamageCol = scene.getObjectByName("objDamage1");
+        if (jugadorCol && objDamageCol) {
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol);
+          if (collisionDetected && !isInContact) {  // Si es la primera vez que detecta la colisión
+            console.log('Colisión detectada, aplicando daño...');
+            if (life > 0) {
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact = true;  // Establece que estamos en contacto
+            }
+          } else if (!collisionDetected && isInContact) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact = false;
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+          }
+        }
+      }
+
+      // FUNCION PARA REINICIAR EL FLAG DE DANIO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+      function resetDamageFlag() {
+        damageApplied = false;  // Resetea el flag para la siguiente colisión
+      }
+     
+      // MODELOS DE FONDO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
 
       const antena = new GLTFLoader();
       antena.load(
@@ -200,6 +261,18 @@
           obj.scale.set(0.3, 0.3, 0.3);
           obj.rotation.set(0, 180, 0);
           obj.position.set(35, 0, -20);
+          scene.add(obj);
+        }
+      );
+
+      const antena2 = new GLTFLoader();
+      antena2.load(
+        "/Escenarios/modelosGenerales/antena/scene.gltf",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(0.3, 0.3, 0.3);
+          obj.rotation.set(0, 95, 0);
+          obj.position.set(-43, 0, 40);
           scene.add(obj);
         }
       );
@@ -263,20 +336,7 @@
           scene.add(obj);
         }
       );
-      
-      const torreAntena = new GLTFLoader();
-      torreAntena.load(
-        "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.4, 0.4, 0.4);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(-50, 0, 30);
-          scene.add(obj);
-        }
-      );
 
-        
 /*       const torreAntena2 = new GLTFLoader();
       torreAntena2.load(
         "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
@@ -327,8 +387,6 @@
         }
       );
 
-
-
       let mixer;
       const kazurka = new GLTFLoader();
       kazurka.load("./kazurka/scene.gltf", function (model) {
@@ -344,15 +402,23 @@
 
       const cameraControl = new OrbitControls(camera, renderer.domElement);
 
+      // FUNCION DE RENDER / ANIMACION
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
       function animate() {
         if (mixer) {
           mixer.update(0.01);
         }
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
 
         //------COORDENADAS------
         updateCharacterPosition();
+
+        //------COLISIONES-------
+        checkCollisions();
+
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+
       }
 
       animate(); 
