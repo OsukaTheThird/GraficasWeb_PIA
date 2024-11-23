@@ -325,13 +325,25 @@
         }
       );
 
+      const laberinto = new GLTFLoader();
+      laberinto.load(
+        "./laberinto/laberinto.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.1, 1.1, 1);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(0, 0, 15);
+          scene.add(obj);
+        }
+      );
+
       const cajas = new GLTFLoader();
       cajas.load(
         "./cajas/scene.gltf",
         function (model) {
           const obj = model.scene;
           obj.scale.set(3.03, 3.03, 3.03);
-          obj.position.set(35, 0, -40);
+          obj.position.set(15, 0, -50);
           scene.add(obj);
         }
       );
@@ -355,7 +367,7 @@
           const obj = model.scene;
           obj.scale.set(3.3, 3.3, 3.3);
           obj.rotation.set(0, 220, 0);
-          obj.position.set(18, 0, -38);
+          obj.position.set(0, 0, -48);
           scene.add(obj);
         }
       );
@@ -390,9 +402,9 @@
         "./tractor/scene.gltf",
         function (model) {
           const obj = model.scene;
-          obj.scale.set(2.2, 2.2, 2.2);
+          obj.scale.set(3, 3, 3);
           obj.rotation.set(0, 0, 0);
-          obj.position.set(45, 0, 0);
+          obj.position.set(75, 1.2, 0);
           scene.add(obj);
         }
       );
@@ -404,7 +416,7 @@
           const obj = model.scene;
           obj.scale.set(1, 1, 1);
           obj.rotation.set(0, 20, 0);
-          obj.position.set(-65, 0, 50);
+          obj.position.set(-75, 0, 50);
           scene.add(obj);
         }
       )
