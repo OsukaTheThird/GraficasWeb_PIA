@@ -3,196 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acrolifos</title>
-    <style>
-
-      @font-face {
-        font-family: "MajorMonoDisplay";
-        src: url("../Fonts/MajorMonoDisplay-Regular.ttf");
-    }
-    
-    @font-face {
-        font-family: "MuseoModerno";
-        src: url("../Fonts/MuseoModerno-VariableFont_wght.ttf");
-    }
-    
-    :root {
-      --azul-pastel: rgb(95, 143, 163);
-      --turqueza: #61baa4;
-      --amarillo-palido: rgb(255, 255, 221);
-      --naranja-zanahoria: rgb(255, 155, 43);
-      --verde-claro: rgb(210, 208, 71);
-    }
-      body {
-        margin: 0;
-      }
-
-      /* Login Logout */
-.log-in-out{
-  position: absolute;
-  left: 85%;
-  top: 20px;
-  display: flex;
-}
-
-.log-in-out button{
-  background-image: radial-gradient(100% 100% at 100% 0, var(--amarillo-palido) 0, var(--azul-pastel) 100%);
-  color: var(--amarillo-palido);
-  border: 2px solid transparent;
-  box-shadow:5px 5px var(--amarillo-palido), 5px 5px 10px rgb(31, 51, 71);
-  width: max-content;
-  padding: 8px;
-  margin-block: 10px;
-  font-size: 18px;
-  border-radius: 20px;
-  font-family: "MuseoModerno";
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: 200ms all;
-}
-
-.log-in-out button:hover{
-  background-image: radial-gradient(100% 100% at 100% 0, var(--amarillo-palido) 0, var(--naranja-zanahoria) 100%);
-  box-shadow: 10px 10px var(--turqueza), 15px 15px 10px rgba(31, 51, 71, 0.3);
-  color: var(--amarillo-palido);
-  font-size: 20px;
-  transition: 150ms all;
-}
-
-.log-in-out  button:first-child::after{
-    content: "";
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin: 0 5px 0 10px;
-}
-
-#btnLogin::after{
-    width: 28px;
-    height: 28px;
-    background: url("../Images/Iconos/google.png") no-repeat;
-    background-size: contain;
-}
-
-.log-in-out img{
-  width: 50px;
-  height: 50px;
-  margin-left: 30px;
-  margin-block: 10px;
-  border-radius: 50%;
-  border: 3px solid var(--amarillo-palido);
-}
-    </style>
+    <title>O.D.N.I | Agroglifos</title>
+    <link rel="icon" href="../../Images/16_favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../CSS/logInOutDesign.css">
   </head>
+
   <body>
     <!-- Musica de Fondo -->
     <audio id="idAudioAgroglifos" loop controls autoplay style="display: none;">
         <source src="../../Audio/Music/Agroglifos.mp3" type="audio/mp3">
         Tu navegador no soporta el formato de audio.
     </audio>
+
+    <!-- Login / Logout -->
     <div class="log-in-out">
       <button id="btnLogin" type="button">Iniciar Sesión</button>
       <button id="btnLogout" type="button" style="display: none;">Cerrar Sesión</button>
       <img id="idImgGoogle" src="Images/Iconos/avatar.png" 
       alt="Imagen de Google" style="display: none;">
-  </div>
+    </div>
 
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
 
     <script type="module">
-
+      // Conexion de Firebase y la API de Google
+      
       // Import the functions you need from the SDKs you need
- import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 
- import {
-     getAuth,
-     signInWithPopup,
-     GoogleAuthProvider,
-     signOut,
- } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+      import {
+          getAuth,
+          signInWithPopup,
+          GoogleAuthProvider,
+          signOut,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
- import {
-     getDatabase,
-     ref,
-     onValue,
-     set,
- } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      import {
+          getDatabase,
+          ref,
+          onValue,
+          set,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
- // TODO: Add SDKs for Firebase products that you want to use
- // https://firebase.google.com/docs/web/setup#available-libraries
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
 
- // Your web app's Firebase configuration
- const firebaseConfig = {
-     apiKey: "AIzaSyBqyFH3zGUSDf7xvY1v7oWDFdGa5U1DpUw",
-     authDomain: "odni-8a655.firebaseapp.com",
-     databaseURL: "https://odni-8a655-default-rtdb.firebaseio.com",
-     projectId: "odni-8a655",
-     storageBucket: "odni-8a655.firebasestorage.app",
-     messagingSenderId: "850710840105",
-     appId: "1:850710840105:web:58b39fe7fe0cdb08c12d38"
- };
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+          apiKey: "AIzaSyBqyFH3zGUSDf7xvY1v7oWDFdGa5U1DpUw",
+          authDomain: "odni-8a655.firebaseapp.com",
+          databaseURL: "https://odni-8a655-default-rtdb.firebaseio.com",
+          projectId: "odni-8a655",
+          storageBucket: "odni-8a655.firebasestorage.app",
+          messagingSenderId: "850710840105",
+          appId: "1:850710840105:web:58b39fe7fe0cdb08c12d38"
+      };
 
- // Initialize Firebase
- const app = initializeApp(firebaseConfig);
- const provider = new GoogleAuthProvider();
- const auth = getAuth();
- const db = getDatabase();
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      const db = getDatabase();
 
- const buttonLogin = document.getElementById("btnLogin");
- const buttonLogout = document.getElementById("btnLogout");
+      let currentUser;
+      async function login() {
+          await signInWithPopup(auth, provider)
+              .then((result) => {
+                  // This gives you a Google Access Token. You can use it to access the Google API.
+                  const credential = GoogleAuthProvider.credentialFromResult(result);
+                  const token = credential.accessToken;
+                  // The signed-in user info.
+                  currentUser = result.user;
 
- let currentUser;
- async function login() {
-     await signInWithPopup(auth, provider)
-         .then((result) => {
-             // This gives you a Google Access Token. You can use it to access the Google API.
-             const credential = GoogleAuthProvider.credentialFromResult(result);
-             const token = credential.accessToken;
-             // The signed-in user info.
-             currentUser = result.user;
+                  // Mostrar la foto de perfil
+                  const imgElement = document.getElementById("idImgGoogle");
+                  imgElement.src = currentUser.photoURL;
+                  imgElement.style.display = "block";
 
-             // Mostrar la foto de perfil
-             const imgElement = document.getElementById("idImgGoogle");
-             imgElement.src = currentUser.photoURL;
-             imgElement.style.display = "block";
+                  console.log(currentUser);
+                  writeUserData(currentUser.uid, 0, 0);
+              })
+              .catch((error) => {
+                  // Handle Errors here.
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // The email of the user's account used.
+                  const email = error.customData.email;
+                  // The AuthCredential type that was used.
+                  const credential = GoogleAuthProvider.credentialFromError(error);
+                  // ...
+              });
+      }
 
-             console.log(currentUser);
-             // writeUserData(currentUser.uid);
-         })
-         .catch((error) => {
-             // Handle Errors here.
-             const errorCode = error.code;
-             const errorMessage = error.message;
-             // The email of the user's account used.
-             const email = error.customData.email;
-             // The AuthCredential type that was used.
-             const credential = GoogleAuthProvider.credentialFromError(error);
-             // ...
-         });
- }
+      const buttonLogin = document.getElementById("btnLogin");
+      const buttonLogout = document.getElementById("btnLogout");
 
- buttonLogin.addEventListener("click", async () => {
-     await login();
- });
+      buttonLogin.addEventListener("click", async () => {
+          await login();
+      });
 
- buttonLogout.addEventListener("click", async () => {
- await signOut(auth)
-     .then(() => {
-         // Limpiar la imagen de perfil
-         const imgAvatar = document.getElementById("idImgGoogle");
-         imgAvatar.src = "Images/Iconos/avatar.png";
-         imgAvatar.style.display = "none";
+      buttonLogout.addEventListener("click", async () => {
+      await signOut(auth)
+          .then(() => {
+              // Limpiar la imagen de perfil
+              const imgAvatar = document.getElementById("idImgGoogle");
+              imgAvatar.src = "Images/Iconos/avatar.png";
+              imgAvatar.style.display = "none";
 
-         // Sign-out successful.
-         console.log("Sign-out successful");
-     })
-     .catch((error) => {
-         // An error happened.
-         console.log("An error happened", error);
-     });
- });
+              // Sign-out successful.
+              console.log("Sign-out successful");
+          })
+          .catch((error) => {
+              // An error happened.
+              console.log("An error happened", error);
+          });
+      });
+
+
       import * as THREE from "/JS/three.module.js";
       import { OrbitControls } from "/JS/OrbitControls.js";
       import { STLLoader } from "/JS/STLLoader.js";
@@ -286,20 +214,31 @@
         console.log(mesh);
       });
 
-      let Player1;
-      const LoaderGLTF = new GLTFLoader();
-      LoaderGLTF.load(
-        "/Escenarios/modelosGenerales/player/player16_model.gltf",
-        function (model) {
-          Player1 = model.scene;
-          Player1.scale.set(1, 1, 1);
-          Player1.position.set(0, -2, 0);
-          scene.add(Player1);
-        }
-      );  
+      // let Player1;
+      // const LoaderGLTF = new GLTFLoader();
+      // LoaderGLTF.load(
+      //   "/Escenarios/modelosGenerales/player/player16_model.gltf",
+      //   function (model) {
+      //     Player1 = model.scene;
+      //     Player1.scale.set(1, 1, 1);
+      //     Player1.position.set(0, -2, 0);
+      //     scene.add(Player1);
+      //   }
+      // );  
 
+      // let Player2;
+      // new GLTFLoader();
+      // LoaderGLTF.load(
+      //   "/Escenarios/modelosGenerales/player/player16_model.gltf",
+      //   function (model) {
+      //     Player2 = model.scene;
+      //     Player2.scale.set(1, 1, 1);
+      //     Player2.position.set(10, -2, 0);
+      //     scene.add(Player2);
+      //   }
+      // );
 
-      /*
+      
       const starCountRef = ref(db, "jugadores");
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
@@ -315,71 +254,53 @@
                 obj.scale.set(1,1,1);
                 obj.position.set(value.x,0,value.z);
                 obj.name = key;
-               /*  obj.rotateX(Math.PI*1.5);
-                obj.rotateZ(Math.PI*2.5); 
+                // obj.rotateX(Math.PI*1.5);
+                // obj.rotateZ(Math.PI*2.5); 
                 obj.castShadow = true;
                 scene.add(obj);
               }
             );
-           */
-        
-      let Player2;
-      new GLTFLoader();
-      LoaderGLTF.load(
-        "/Escenarios/modelosGenerales/player/player16_model.gltf",
-        function (model) {
-          Player2 = model.scene;
-          Player2.scale.set(1, 1, 1);
-          Player2.position.set(10, -2, 0);
-          scene.add(Player2);
-        }
-      );
+          };
+
+          scene.getObjectByName(key).position.x = value.x;
+          scene.getObjectByName(key).position.z = value.z;
+
+        });
+      });    
+
+      //Escribir
+      function writeUserData(userId, positionX, positionZ) {
+        set(ref(db, "jugadores/" + userId), {
+          x: positionX,
+          z: positionZ,
+        });
+      }
 
       document.onkeydown = function (e) {
-        if (Player1){
-         // derecha
-         if (e.keyCode == 39) { //izquierda
-          Player1.position.x = Player1.position.x += 1;
+        const jugadorActual = scene.getObjectByName(currentUser.uid);
+
+        if (e.keyCode == 37) {
+          jugadorActual.position.x -= 1;
         }
-        // izquierda
-        if (e.keyCode == 37) { //derecha
-          Player1.position.x = Player1.position.x -= 1; // Verificar que el modelo esté cargado
-          }
-  
-          if (e.keyCode == 38) { //arriba
-            Player1.position.z = Player1.position.z -= 1;
-          }
-          // izquierda
-          if (e.keyCode == 40) { //abajo
-            Player1.position.z = Player1.position.z += 1; // Verificar que el modelo esté cargado
-            }
-  
-        
-  
-  
-      }  
-  
-      if (Player2){
-        
-        if (e.keyCode == 68) { //izquierda
-         Player2.position.x = Player2.position.x += 1;
-       }
-       // izquierda
-       if (e.keyCode == 65) { //derecha
-         Player2.position.x = Player2.position.x -= 1; // Verificar que el modelo esté cargado
-         }
-  
-         if (e.keyCode == 87) { //arriba
-           Player2.position.z = Player2.position.z -= 1;
-         }
-         // izquierda
-         if (e.keyCode == 83) { //abajo
-           Player2.position.z = Player2.position.z += 1; // Verificar que el modelo esté cargado
-           }
-  
+
+        if (e.keyCode == 39) {
+          jugadorActual.position.x += 1;
         }
-  
-      }
+
+        if (e.keyCode == 38) {
+          jugadorActual.position.z -= 1;
+        }
+
+        if (e.keyCode == 40) {
+          jugadorActual.position.z += 1;
+        }
+
+        writeUserData(
+          currentUser.uid,
+          jugadorActual.position.x,
+          jugadorActual.position.z
+        );
+      };
 /*       const acrolifos = new GLTFLoader();
       acrolifos.load(
         "./cropcircles/cropcircles1.glb",
