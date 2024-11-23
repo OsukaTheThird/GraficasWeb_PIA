@@ -3,19 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Top Secret Area</title>
+    <title>O.D.N.I | TOP SECRET AREA</title>
+    <link rel="icon" href="../../Images/16_favicon.ico" type="image/x-icon"/>
+    
     <style>
       body {
         margin: 0;
+        overflow:hidden;
       }
     </style>
+
   </head>
+
   <body>
     <!-- Musica de Fondo -->
     <audio id="idAudioTSA" loop controls autoplay style="display: none;">
         <source src="../../Audio/Music/TOP_SECRET_AREA.mp3" type="audio/mp3">
         Tu navegador no soporta el formato de audio.
     </audio>
+
+    <!-- Coordenadas -->
+    <div id="coordinates">Coordenadas: (0, 0, 0)</div>
 
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
@@ -65,23 +73,23 @@
       cube1.castShadow = true;
       cube1.position.set(3, 0, 0);
 
-      document.onkeydown = function (e) {
-        if (e.keyCode == 37) {
-          cube1.position.x -= 1;
-        }
+      // document.onkeydown = function (e) {
+      //   if (e.keyCode == 37) {
+      //     cube1.position.x -= 1;
+      //   }
 
-        if (e.keyCode == 39) {
-          cube1.position.x += 1;
-        }
+      //   if (e.keyCode == 39) {
+      //     cube1.position.x += 1;
+      //   }
 
-        if (e.keyCode == 38) {
-          cube1.position.z -= 1;
-        }
+      //   if (e.keyCode == 38) {
+      //     cube1.position.z -= 1;
+      //   }
 
-        if (e.keyCode == 40) {
-          cube1.position.z += 1;
-        }
-      };
+      //   if (e.keyCode == 40) {
+      //     cube1.position.z += 1;
+      //   }
+      // };
 
       const planeGeometry = new THREE.PlaneGeometry(250, 250);
       const textureLoader = new THREE.TextureLoader();
@@ -106,29 +114,34 @@
       });
 
       let Player1;
+      const jugador = scene.getObjectByName("player");
       const LoaderGLTF = new GLTFLoader();
       LoaderGLTF.load(
         "/Escenarios/modelosGenerales/player/player16_model.gltf",
         function (model) {
           Player1 = model.scene;
           Player1.scale.set(1, 1, 1);
-          Player1.position.set(0, -0.5, 0);
+          Player1.position.set(0, -0.2, 0);
+          Player1.name = "player";
           scene.add(Player1);
         }
       );
 
-      /* let Player2;
-      new GLTFLoader();
-      LoaderGLTF.load(
-        "./player16/player16_model.gltf",
-        function (model) {
-          Player2 = model.scene;
-          Player2.scale.set(1, 1, 1);
-         
-          Player2.position.set(-10, -0.5, 4);
-          scene.add(Player2);
+      // COORDENADAS DEL JUGADOR EN PANTALLA
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+      const coordinatesText = document.getElementById('coordinates');
+
+      function updateCharacterPosition() {
+        // Obtén el jugador por su nombre "player"
+        const jugador = scene.getObjectByName("player");
+
+        if (jugador) {
+          // Actualizar y mostrar las coordenadas en pantalla
+          const playerPosition = jugador.position;
+          coordinatesText.textContent = `Coordenadas: (${playerPosition.x.toFixed(2)}, ${playerPosition.y.toFixed(2)}, ${playerPosition.z.toFixed(2)})`;
         }
-      ); */
+      }
 
       document.onkeydown = function (e) {
         if (Player1){
@@ -149,30 +162,7 @@
             Player1.position.z = Player1.position.z += 1; // Verificar que el modelo esté cargado
             }
   
-        
-  
-  
       }  
-  
-      if (Player2){
-        
-        if (e.keyCode == 68) { //izquierda
-         Player2.position.x = Player2.position.x += 1;
-       }
-       // izquierda
-       if (e.keyCode == 65) { //derecha
-         Player2.position.x = Player2.position.x -= 1; // Verificar que el modelo esté cargado
-         }
-  
-         if (e.keyCode == 87) { //arriba
-           Player2.position.z = Player2.position.z -= 1;
-         }
-         // izquierda
-         if (e.keyCode == 83) { //abajo
-           Player2.position.z = Player2.position.z += 1; // Verificar que el modelo esté cargado
-           }
-  
-        }
   
       }
       const soldier = new GLTFLoader();
@@ -357,6 +347,10 @@
         }
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
+
+        //------COORDENADAS------
+        updateCharacterPosition();
+        
       }
 
       animate();
