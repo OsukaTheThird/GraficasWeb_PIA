@@ -67,7 +67,7 @@
       const planeMaterial = new THREE.MeshPhongMaterial({ map: terrainTexture });
       const plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.rotateX(-Math.PI / 2);
-      plane.position.set(0, -2.5, 0);
+      plane.position.set(0, 0, 0);
 
 /*       const planeGeometry = new THREE.PlaneGeometry(200, 200);
       const textureLoader = new THREE.TextureLoader();
@@ -288,6 +288,18 @@
           obj.scale.set(1, 1, 1);
           obj.rotation.set(0, 20, 0);
           obj.position.set(-65, 0, 50);
+          scene.add(obj);
+        }
+      )
+
+      const valla = new GLTFLoader();
+      valla.load(
+        "./fence_wood/fence.glb",
+        function(model){
+          const obj = model.scene;
+          obj.scale.set(1.2, 1, 1.2);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(0, 0, 0);
           scene.add(obj);
         }
       )
