@@ -108,8 +108,14 @@
       
       let life = 90;
       const lifeElement = document.getElementById('idVidaPlayer');
-      let damageApplied = false; 
-      let isInContact = false;
+      
+      // Banderas para detectar las colisiones que generan danio
+      let isInContact1 = false;
+      let isInContact2 = false;
+
+      let speed = 1;
+      let speedMultiplier = 3;
+      let powerUpDuration = 5000; // Duración del power-up en milisegundos (5 segundos)
 
       let pieces = 0;
       const piecesElement = document.getElementById('idNaveContador');
@@ -161,32 +167,30 @@
       //---------------------------------------------------------------------------------------------------------------------------------------------------
 
       document.onkeydown = function (e) {
-        if (Player1){
-         // derecha
-          if (e.keyCode == 39) { //izquierda
-            Player1.position.x = Player1.position.x += 1;
+        if (Player1) {
+          // derecha
+          if (e.keyCode == 39) { // izquierda
+            Player1.position.x += speed;
           }
           // izquierda
-          if (e.keyCode == 37) { //derecha
-            Player1.position.x = Player1.position.x -= 1; // Verificar que el modelo esté cargado
-            }
-    
-          if (e.keyCode == 38) { //arriba
-            Player1.position.z = Player1.position.z -= 1;
-          }
-          // izquierda
-          if (e.keyCode == 40) { //abajo
-            Player1.position.z = Player1.position.z += 1; // Verificar que el modelo esté cargado
+          if (e.keyCode == 37) { // derecha
+            Player1.position.x -= speed;
           }
 
-        }  
-   
+          if (e.keyCode == 38) { // arriba
+            Player1.position.z -= speed;
+          }
+          // abajo
+          if (e.keyCode == 40) { // abajo
+            Player1.position.z += speed;
+          }
+        }
       }
 
       // MODELOS QUE GENERAN DAÑO
       //---------------------------------------------------------------------------------------------------------------------------------------------------
-      
-      const objDamage = scene.getObjectByName("objDamage1");
+      //-------Antena---------
+      const objDamage1 = scene.getObjectByName("objDamage1");
       const torreAntena = new GLTFLoader();
       torreAntena.load(
         "/Escenarios/modelosGenerales/torreAntena/scene.gltf",
@@ -197,6 +201,21 @@
           objDamageTorre.position.set(-50, 0, 30);
           objDamageTorre.name = "objDamage1";
           scene.add(objDamageTorre);
+        }
+      );
+
+      //-------Cohete---------
+      const objDamage2 = scene.getObjectByName("objDamage2");
+      const coheteMotor = new GLTFLoader();
+      coheteMotor.load(
+        "./cohete_motor/cohete_motor.glb",
+        function (model) {
+          const objDamageCohete = model.scene;
+          objDamageCohete.scale.set(1, 1, 1);
+          objDamageCohete.rotation.set(0, 0, 0);
+          objDamageCohete.position.set(-25, 1, -35);
+          objDamageCohete.name = "objDamage2";
+          scene.add(objDamageCohete);
         }
       );
 
@@ -277,7 +296,7 @@
           
           const collisionDetected = detectCollision(jugadorCol, objDamageCol1);
           
-          if (collisionDetected && !isInContact) {  // Si es la primera vez que detecta la colisión
+          if (collisionDetected && !isInContact1) {  // Si es la primera vez que detecta la colisión
             console.log('Colisión detectada, aplicando daño...');
             if (life > 0) {
               sound_damage.play();
@@ -285,11 +304,38 @@
               life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
               lifeElement.textContent = `Vida: ${life}`;
               console.log(`Vida restante: ${life}`);
-              isInContact = true;  // Establece que estamos en contacto
+              isInContact1 = true;  // Establece que estamos en contacto
             }
-          } else if (!collisionDetected && isInContact) {
+          } else if (!collisionDetected && isInContact1) {
             // Si ya no están en contacto, restablecemos el estado
-            isInContact = false;
+            isInContact1 = false;
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+          }
+        }
+
+        //-------Cohete---------
+        if (jugadorCol && objDamageCol2) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol2);
+          
+          if (collisionDetected && !isInContact2) {  // Si es la primera vez que detecta la colisión
+            console.log('Colisión detectada, aplicando daño...');
+            if (life > 0) {
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact2 = true;  // Establece que estamos en contacto
+            }
+          } else if (!collisionDetected && isInContact2) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact2 = false;
             console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
           }
 
@@ -324,30 +370,29 @@
 
         //-------Velocidad---------
         if (jugadorCol && objSpeedCol) {
-
           const collisionDetected = detectCollision(jugadorCol, objSpeedCol);
-        
+          
           if (collisionDetected) {
             console.log('Colisión detectada, subiendo velocidad...');
             sound_powerup.play();
 
-            life += 30;
-            life = Math.min(life, 90);
+            // Duplicar la velocidad
+            speed *= speedMultiplier;
+            console.log('Velocidad duplicada: ', speed);
             
             // Destruir el PowerUp después de la colisión
-            scene.remove(objHealthCol);
-            console.log('PowerUp de Vida destruido');
+            scene.remove(objSpeedCol);
+            console.log('PowerUp de Velocidad destruido');
+
+            // Restablecer la velocidad después de 5 segundos
+            setTimeout(() => {
+              speed /= speedMultiplier;
+              console.log('Velocidad restablecida: ', speed);
+            }, powerUpDuration);
           }
         }
       }
 
-      // FUNCION PARA REINICIAR EL FLAG DE DANIO
-      //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-      function resetDamageFlag() {
-        damageApplied = false;  // Resetea el flag para la siguiente colisión
-      }
-     
       // MODELOS DE FONDO
       //---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -395,18 +440,6 @@
           obj.scale.set(1, 1, 1);
           obj.rotation.set(0, 0, 0);
           obj.position.set(15, -1, -38);
-          scene.add(obj);
-        }
-      );
-
-      const coheteMotor = new GLTFLoader();
-      coheteMotor.load(
-        "./cohete_motor/cohete_motor.glb",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.rotation.set(0, 0, 0);
-          obj.position.set(-25, 1, -35);
           scene.add(obj);
         }
       );
