@@ -399,6 +399,41 @@
         }
       );
 
+      const coheteMotor = new GLTFLoader();
+      coheteMotor.load(
+        "./cohete_motor/cohete_motor.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1, 1, 1);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(-25, 1, -35);
+          scene.add(obj);
+        }
+      );
+
+      const carros = new GLTFLoader();
+      carros.load(
+        "./carros/carros.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.2, 1.2, 1.2);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(10, 0, 30);
+          scene.add(obj);
+        }
+      );
+
+      const carros2 = new GLTFLoader();
+      carros2.load(
+        "./carros/carros2.glb",
+        function (model) {
+          const obj = model.scene;
+          obj.scale.set(1.2, 1.2, 1.2);
+          obj.rotation.set(0, 0, 0);
+          obj.position.set(-10, 0, 30);
+          scene.add(obj);
+        }
+      );
 /*       const mina = new GLTFLoader(); //cambiarNombre a mina
       mina.load(
         "/Escenarios/modelosGenerales/mina/scene.gltf",
