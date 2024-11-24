@@ -63,31 +63,6 @@
       directionalLight.position.set(4, 5, -1);
       scene.add(directionalLight);
 
-      // const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
-
-      // const cube1Material = new THREE.MeshPhongMaterial({ color: "aqua" });
-      // const cube1 = new THREE.Mesh(cube1Geometry, cube1Material);
-      // cube1.castShadow = true;
-      // cube1.position.set(3, 0, 0);
-
-      // document.onkeydown = function (e) {
-      //   if (e.keyCode == 37) {
-      //     cube1.position.x -= 1;
-      //   }
-
-      //   if (e.keyCode == 39) {
-      //     cube1.position.x += 1;
-      //   }
-
-      //   if (e.keyCode == 38) {
-      //     cube1.position.z -= 1;
-      //   }
-
-      //   if (e.keyCode == 40) {
-      //     cube1.position.z += 1;
-      //   }
-      // };
-
       // PLANO DEL TERRENO
       //---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -124,7 +99,6 @@
 
       let pieces = 0;
       const piecesElement = document.getElementById('idNaveContador');
-
       var navePieza1 = false;
       var navePieza2 = false;
       var navePieza3 = false;
@@ -134,6 +108,7 @@
       // DECLARACION DE EFECTOS DE SONIDO
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
       var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
+      var sound_pieces = new Audio('../../Audio/SoundEffects/Piezas.mp3');
 
       // JUGADOR
       //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -194,6 +169,7 @@
 
       // MODELOS QUE GENERAN DAÑO
       //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
       //-------Antena---------
       const objDamage1 = scene.getObjectByName("objDamage1");
       const torreAntena = new GLTFLoader();
@@ -269,6 +245,45 @@
         }
       );
 
+      // MODELOS DE LAS PIEZAS DE LA NAVE
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      const objPiece1 = scene.getObjectByName("objPiece1");
+      const naveTrozo1 = new GLTFLoader();
+      naveTrozo1.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo1.glb",
+        function (model) {
+          const objShipPiece1 = model.scene;
+          objShipPiece1.position.set(-10, 0.2, -10);
+          objShipPiece1.name = "objPiece1";
+          scene.add(objShipPiece1);
+        }
+      );
+
+      const objPiece2 = scene.getObjectByName("objPiece2");
+      const naveTrozo2 = new GLTFLoader();
+      naveTrozo2.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo2.glb",
+        function (model) {
+          const objShipPiece2 = model.scene;
+          objShipPiece2.position.set(-10, 1.25, 0);
+          objShipPiece2.name = "objPiece2";
+          scene.add(objShipPiece2);
+        }
+      );
+
+      const objPiece3 = scene.getObjectByName("objPiece3");
+      const naveTrozo3 = new GLTFLoader();
+      naveTrozo3.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo3_cristal.glb",
+        function (model) {
+          const objShipPiece3 = model.scene;
+          objShipPiece3.position.set(-10, -0.5, 10);
+          objShipPiece3.name = "objPiece3";
+          scene.add(objShipPiece3);
+        }
+      );
+
       // FUNCION DE COLISIONES
       //---------------------------------------------------------------------------------------------------------------------------------------------------
       
@@ -293,6 +308,10 @@
         const objHealthCol = scene.getObjectByName("objItemHealth");
         const objShieldCol = scene.getObjectByName("objItemShield");
         const objSpeedCol = scene.getObjectByName("objItemSpeed");
+
+        const objPieceCol1 = scene.getObjectByName("objPiece1");
+        const objPieceCol2 = scene.getObjectByName("objPiece2");
+        const objPieceCol3 = scene.getObjectByName("objPiece3");
 
         // COLISIONES DE BAJA DE VIDA
         //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -323,6 +342,7 @@
           if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
             perdiste = true;
             console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
           }
         }
 
@@ -353,6 +373,7 @@
           if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
             perdiste = true;
             console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
           }
         }
 
@@ -402,8 +423,8 @@
                   });
 
                   // Cambiar el color y la transparencia del material
-                  child.material.color.set(0x00FFFF); // Color del escudo (aqua)
-                  child.material.opacity = 0.5;        // Transparencia
+                  child.material.color.set(0x00FFFF);
+                  child.material.opacity = 0.5;
                   child.material.transparent = true;   // Asegurarse de que sea transparente
                   child.material.needsUpdate = true;   // Marcar el material para ser actualizado
                 }
@@ -414,7 +435,7 @@
             scene.remove(objShieldCol);
             console.log('PowerUp de Escudo destruido');
 
-            // Restablecer la velocidad después de 5 segundos
+            // Quitar el escudo después de 10 segundos
             setTimeout(() => {
               shieldActive = false;
               console.log('Escudo desactivado');
@@ -467,6 +488,70 @@
             }, powerUpDuration);
           }
         }
+
+        // COLISIONES DE LAS PIEZAS DE LA NAVE
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        if (jugadorCol && objPieceCol1) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol1);
+
+          if(collisionDetected){
+            if(!navePieza1){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol1);
+              console.log('Pieza 1 destruida');
+            }
+            navePieza1 = true;
+            console.log('Pieza 1 adquirida');
+          }
+        }
+
+        if (jugadorCol && objPieceCol2) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol2);
+
+          if(collisionDetected){
+            if(!navePieza2){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol2);
+              console.log('Pieza 2 destruida');
+            }
+            navePieza2 = true;
+            console.log('Pieza 2 adquirida');
+          }
+        }
+
+        if (jugadorCol && objPieceCol3) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol3);
+
+          if(collisionDetected){
+            if(!navePieza3){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol3);
+              console.log('Pieza 3 destruida');
+            }
+            navePieza3 = true;
+            console.log('Pieza 3 adquirida');
+          }
+        }
+
       }
 
       // MODELOS DE FONDO
