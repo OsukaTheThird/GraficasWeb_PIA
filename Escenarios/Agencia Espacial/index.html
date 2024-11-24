@@ -115,7 +115,12 @@
 
       let speed = 1;
       let speedMultiplier = 3;
-      let powerUpDuration = 5000; // Duración del power-up en milisegundos (5 segundos)
+      let powerUpDuration = 5000; // Duración de la velocidad en milisegundos (5 segundos)
+
+      let shieldActive = false;
+      let shieldDuration = 10000; // Duración del escudo en milisegundos (10 segundos)
+      let originalMaterials = []; // Arreglo para guardar la textura original de 16°
+      let colorShieldApplied = false;
 
       let pieces = 0;
       const piecesElement = document.getElementById('idNaveContador');
@@ -292,13 +297,14 @@
         // COLISIONES DE BAJA DE VIDA
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         //-------Antena---------
-        if (jugadorCol && objDamageCol1) {
+        if (jugadorCol && objDamageCol1 && !shieldActive) {
           
           const collisionDetected = detectCollision(jugadorCol, objDamageCol1);
           
           if (collisionDetected && !isInContact1) {  // Si es la primera vez que detecta la colisión
-            console.log('Colisión detectada, aplicando daño...');
+            
             if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
               sound_damage.play();
               life -= 30;  // Reducir vida en 30
               life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
@@ -306,9 +312,11 @@
               console.log(`Vida restante: ${life}`);
               isInContact1 = true;  // Establece que estamos en contacto
             }
+
           } else if (!collisionDetected && isInContact1) {
             // Si ya no están en contacto, restablecemos el estado
             isInContact1 = false;
+
             console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
           }
 
@@ -319,13 +327,14 @@
         }
 
         //-------Cohete---------
-        if (jugadorCol && objDamageCol2) {
+        if (jugadorCol && objDamageCol2 && !shieldActive) {
           
           const collisionDetected = detectCollision(jugadorCol, objDamageCol2);
           
           if (collisionDetected && !isInContact2) {  // Si es la primera vez que detecta la colisión
-            console.log('Colisión detectada, aplicando daño...');
+            
             if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
               sound_damage.play();
               life -= 30;  // Reducir vida en 30
               life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
@@ -333,9 +342,11 @@
               console.log(`Vida restante: ${life}`);
               isInContact2 = true;  // Establece que estamos en contacto
             }
+
           } else if (!collisionDetected && isInContact2) {
             // Si ya no están en contacto, restablecemos el estado
             isInContact2 = false;
+            
             console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
           }
 
@@ -365,6 +376,71 @@
             // Destruir el PowerUp después de la colisión
             scene.remove(objHealthCol);
             console.log('PowerUp de Vida destruido');
+          }
+        }
+
+        //-------Escudo---------
+        if (jugadorCol && objShieldCol) {
+          const collisionDetected = detectCollision(jugadorCol, objShieldCol);
+          if (collisionDetected && !colorShieldApplied) {  // Solo aplicar el escudo si no se ha aplicado antes
+            console.log('Colisión detectada, agregando escudo...');
+            sound_powerup.play();
+            shieldActive = true;
+            colorShieldApplied = true;  // Marca que el escudo ha sido aplicado
+
+            // Guardar las propiedades originales de los materiales (incluyendo color y opacidad)
+            if (Player1) {
+              Player1.traverse((child) => {
+                if (child.isMesh) {
+                  // Guardar las propiedades originales solo si aún no se han guardado
+                  originalMaterials.push({
+                    mesh: child,
+                    material: child.material,
+                    color: child.material.color.clone(),  // Guardar el color original
+                    opacity: child.material.opacity,      // Guardar la opacidad original
+                    transparent: child.material.transparent, // Guardar la transparencia original
+                  });
+
+                  // Cambiar el color y la transparencia del material
+                  child.material.color.set(0x00FFFF); // Color del escudo (aqua)
+                  child.material.opacity = 0.5;        // Transparencia
+                  child.material.transparent = true;   // Asegurarse de que sea transparente
+                  child.material.needsUpdate = true;   // Marcar el material para ser actualizado
+                }
+              });
+            }
+
+            // Destruir el PowerUp de Escudo después de la colisión
+            scene.remove(objShieldCol);
+            console.log('PowerUp de Escudo destruido');
+
+            // Restablecer la velocidad después de 5 segundos
+            setTimeout(() => {
+              shieldActive = false;
+              console.log('Escudo desactivado');
+
+              // Restaurar el material original después de que el escudo se desactive
+              if (Player1) {
+                Player1.traverse((child) => {
+                  if (child.isMesh) {
+                    const originalProps = originalMaterials.find(item => item.mesh === child);
+
+                    if (originalProps) {
+                      // Restaurar completamente el material original
+                      child.material.color.copy(originalProps.color);  // Restaurar el color original
+                      child.material.opacity = originalProps.opacity;  // Restaurar la opacidad
+                      child.material.transparent = originalProps.transparent;  // Restaurar la transparencia
+                      child.material.needsUpdate = true;  // Asegurarse de que se recargue el material
+                    }
+                  }
+                });
+
+                // Limpiar el array de materiales originales para la próxima vez
+                originalMaterials = [];
+              }
+
+              colorShieldApplied = false;  // Restablecer la variable de control
+            }, shieldDuration);  // Usar la variable 'shieldDuration' para el tiempo del escudo
           }
         }
 
