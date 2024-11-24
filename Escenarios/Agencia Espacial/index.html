@@ -10,10 +10,10 @@
 
   <body>
     <!-- Musica de Fondo -->
-    <audio id="idAudioAgencia" loop controls autoplay style="display: none;">
+    <!-- <audio id="idAudioAgencia" loop controls autoplay style="display: none;">
         <source src="../../Audio/Music/Agencia_Espacial.mp3" type="audio/mp3">
         Tu navegador no soporta el formato de audio.
-    </audio>
+    </audio> -->
 
     <!-- Coordenadas -->
     <div id="coordinates">Coordenadas: (0, 0, 0)</div>
@@ -60,7 +60,7 @@
       scene.add(hemisphereLight);
 
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionalLight.position.set(1, 5, -1);
+      directionalLight.position.set(4, 5, -1);
       scene.add(directionalLight);
 
       // const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -122,6 +122,7 @@
 
       // DECLARACION DE EFECTOS DE SONIDO
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
+      var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
 
       // JUGADOR
       //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -199,6 +200,51 @@
         }
       );
 
+      // MODELOS DE POWERUPS
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      //-----Vida--------
+      const objItemHealth = scene.getObjectByName("objItemHealth");
+      const itemVida = new GLTFLoader();
+      itemVida.load(
+        "/Escenarios/modelosGenerales/powerUps/Vida/item_vida.gltf",
+        function (model) {
+          const objItem1 = model.scene;
+          objItem1.position.set(10, 0.2, 10);
+          objItem1.rotation.set(0, 90, 0);
+          objItem1.name = "objItemHealth";
+          scene.add(objItem1);
+        }
+      );
+
+      //-----Escudo--------
+      const objItemShield = scene.getObjectByName("objItemShield");
+      const itemEscudo = new GLTFLoader();
+      itemEscudo.load(
+        "/Escenarios/modelosGenerales/powerUps/Escudo/item_escudo1.gltf",
+        function (model) {
+          const objItem2 = model.scene;
+          objItem2.scale.set(0.4, 0.4, 0.4);
+          objItem2.position.set(10, 1, 0);
+          objItem2.name = "objItemShield";
+          scene.add(objItem2);
+        }
+      );
+
+      //-----Velocidad--------
+      const objItemSpeed = scene.getObjectByName("objItemSpeed");
+      const itemVelocidad = new GLTFLoader();
+      itemVelocidad.load(
+        "/Escenarios/modelosGenerales/powerUps/Velocidad/item_velocidad.gltf",
+        function (model) {
+          const objItem3 = model.scene;
+          objItem3.position.set(10, 0.2, -10);
+          objItem3.rotation.set(0, 90, 0);
+          objItem3.name = "objItemSpeed";
+          scene.add(objItem3);
+        }
+      );
+
       // FUNCION DE COLISIONES
       //---------------------------------------------------------------------------------------------------------------------------------------------------
       
@@ -214,12 +260,23 @@
       //---------------------------------------------------------------------------------------------------------------------------------------------------
 
       function checkCollisions() {
-        // COLISIONES DE BAJA DE VIDA
-        //-------Antena---------
+        // DECLARACION DE CONSTS
         const jugadorCol = scene.getObjectByName("player");
-        const objDamageCol = scene.getObjectByName("objDamage1");
-        if (jugadorCol && objDamageCol) {
-          const collisionDetected = detectCollision(jugadorCol, objDamageCol);
+
+        const objDamageCol1 = scene.getObjectByName("objDamage1");
+        const objDamageCol2 = scene.getObjectByName("objDamage2");
+
+        const objHealthCol = scene.getObjectByName("objItemHealth");
+        const objShieldCol = scene.getObjectByName("objItemShield");
+        const objSpeedCol = scene.getObjectByName("objItemSpeed");
+
+        // COLISIONES DE BAJA DE VIDA
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------Antena---------
+        if (jugadorCol && objDamageCol1) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol1);
+          
           if (collisionDetected && !isInContact) {  // Si es la primera vez que detecta la colisión
             console.log('Colisión detectada, aplicando daño...');
             if (life > 0) {
@@ -239,6 +296,47 @@
           if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
             perdiste = true;
             console.log('¡Has perdido!');
+          }
+        }
+
+        // COLISIONES DE POWERUPS
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------Vida---------
+        if (jugadorCol && objHealthCol) {
+         
+          const collisionDetected = detectCollision(jugadorCol, objHealthCol);
+        
+          if (collisionDetected) {
+            console.log('Colisión detectada, subiendo vida...');
+            sound_powerup.play();
+
+            life += 30;
+            life = Math.min(life, 90);
+            
+            lifeElement.textContent = `Vida: ${life}`;
+            console.log(`Vida restante: ${life}`);
+            
+            // Destruir el PowerUp después de la colisión
+            scene.remove(objHealthCol);
+            console.log('PowerUp de Vida destruido');
+          }
+        }
+
+        //-------Velocidad---------
+        if (jugadorCol && objSpeedCol) {
+
+          const collisionDetected = detectCollision(jugadorCol, objSpeedCol);
+        
+          if (collisionDetected) {
+            console.log('Colisión detectada, subiendo velocidad...');
+            sound_powerup.play();
+
+            life += 30;
+            life = Math.min(life, 90);
+            
+            // Destruir el PowerUp después de la colisión
+            scene.remove(objHealthCol);
+            console.log('PowerUp de Vida destruido');
           }
         }
       }
