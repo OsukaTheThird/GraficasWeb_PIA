@@ -34,6 +34,7 @@
 
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
+    <script src="../../JS/efectosSonidoScript.js"></script>
     
     <script type="module">
 
@@ -111,63 +112,62 @@
       
       var perdiste = false;
       var ganaste = false;
+
       // DECLARACION DE EFECTOS DE SONIDO
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
       var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
       var sound_pieces = new Audio('../../Audio/SoundEffects/Piezas.mp3');
-
+      // Verificar si los efectos de sonido están habilitados
+      var soundEffectEnabled = localStorage.getItem('soundEffectEnabled');
 
       //Particulas
-//=================================================================================================================================================================================================
-          
-const particleGeometry = new THREE.BufferGeometry();
-const particleMaterial = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 0.1,
-});
-// Crear un array para las posiciones de las partículas
-const particles = [];
+      //=================================================================================================================================================================================================
+                
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.1,
+      });
+      // Crear un array para las posiciones de las partículas
+      const particles = [];
 
-// Llenar el array con posiciones aleatorias
-for (let i = 0; i < 1000; i++) {
-  const x = (Math.random() - 0.5) * 200;
-  const y = Math.random() * 100;
-  const z = (Math.random() - 0.5) * 200;
+      // Llenar el array con posiciones aleatorias
+      for (let i = 0; i < 1000; i++) {
+        const x = (Math.random() - 0.5) * 200;
+        const y = Math.random() * 100;
+        const z = (Math.random() - 0.5) * 200;
 
-  particles.push(x, y, z);
-}
+        particles.push(x, y, z);
+      }
 
-// Establecer las posiciones en la geometría
-particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
+      // Establecer las posiciones en la geometría
+      particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
 
-// Crear el objeto de partículas y agregarlo a la escena
-const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-scene.add(particleSystem);
-
-
-// Función para actualizar las posiciones de las partículas
-function updateParticles() {
-  const positions = particleGeometry.attributes.position.array;
-
-  for (let i = 0; i < positions.length; i += 3) {
-    // Modifica las posiciones para el movimiento
-    positions[i] += 0.1 * (Math.random() - 0.90); // Ajusta la velocidad según sea necesario
-    positions[i + 1] += 0.1 * (Math.random() - 0.8);
-    positions[i + 2] += 0.1 * (Math.random() - 0.6);
-
-    // Límites para que las partículas no se alejen demasiado
-    const limit = 50;
-    positions[i] = Math.max(-limit, Math.min(limit, positions[i]));
-    positions[i + 1] = Math.max(0, Math.min(limit, positions[i + 1]));
-    positions[i + 2] = Math.max(-limit, Math.min(limit, positions[i + 2]));
-  }
-
-  // Actualiza la geometría
-  particleGeometry.attributes.position.needsUpdate = true;
-}
+      // Crear el objeto de partículas y agregarlo a la escena
+      const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particleSystem);
 
 
+      // Función para actualizar las posiciones de las partículas
+      function updateParticles() {
+        const positions = particleGeometry.attributes.position.array;
 
+        for (let i = 0; i < positions.length; i += 3) {
+          // Modifica las posiciones para el movimiento
+          positions[i] += 0.1 * (Math.random() - 0.90); // Ajusta la velocidad según sea necesario
+          positions[i + 1] += 0.1 * (Math.random() - 0.8);
+          positions[i + 2] += 0.1 * (Math.random() - 0.6);
+
+          // Límites para que las partículas no se alejen demasiado
+          const limit = 50;
+          positions[i] = Math.max(-limit, Math.min(limit, positions[i]));
+          positions[i + 1] = Math.max(0, Math.min(limit, positions[i + 1]));
+          positions[i + 2] = Math.max(-limit, Math.min(limit, positions[i + 2]));
+        }
+
+        // Actualiza la geometría
+        particleGeometry.attributes.position.needsUpdate = true;
+      }
 
       // JUGADOR
       //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -383,7 +383,10 @@ function updateParticles() {
             
             if (life > 0) {
               console.log('Colisión detectada, aplicando daño...');
-              sound_damage.play();
+              if (soundEffectEnabled === 'true') {
+                sound_damage.play();
+              }
+              
               life -= 30;  // Reducir vida en 30
               life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
               lifeElement.textContent = `Vida: ${life}`;
@@ -406,7 +409,6 @@ function updateParticles() {
 
 
         }
-
         
 
         //-------Cohete---------
@@ -418,7 +420,10 @@ function updateParticles() {
             
             if (life > 0) {
               console.log('Colisión detectada, aplicando daño...');
-              sound_damage.play();
+              if (soundEffectEnabled === 'true') {
+                sound_damage.play();
+              }
+
               life -= 30;  // Reducir vida en 30
               life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
               lifeElement.textContent = `Vida: ${life}`;
@@ -449,7 +454,9 @@ function updateParticles() {
         
           if (collisionDetected) {
             console.log('Colisión detectada, subiendo vida...');
-            sound_powerup.play();
+            if (soundEffectEnabled === 'true') {
+              sound_powerup.play();
+            }
 
             life += 30;
             life = Math.min(life, 90);
@@ -468,7 +475,10 @@ function updateParticles() {
           const collisionDetected = detectCollision(jugadorCol, objShieldCol);
           if (collisionDetected && !colorShieldApplied) {  // Solo aplicar el escudo si no se ha aplicado antes
             console.log('Colisión detectada, agregando escudo...');
-            sound_powerup.play();
+            if (soundEffectEnabled === 'true') {
+              sound_powerup.play();
+            }
+
             shieldActive = true;
             colorShieldApplied = true;  // Marca que el escudo ha sido aplicado
 
@@ -534,7 +544,9 @@ function updateParticles() {
           
           if (collisionDetected) {
             console.log('Colisión detectada, subiendo velocidad...');
-            sound_powerup.play();
+            if (soundEffectEnabled === 'true') {
+              sound_powerup.play();
+            }
 
             // Duplicar la velocidad
             speed *= speedMultiplier;
@@ -561,7 +573,9 @@ function updateParticles() {
           if(collisionDetected){
             if(!navePieza1){
               console.log('Colisión detectada, guardando pieza de nave...');
-              sound_pieces.play();
+              if (soundEffectEnabled === 'true') {
+                sound_pieces.play();
+              }
 
               pieces++;
               piecesElement.textContent = `Contador: ${pieces}`;
@@ -581,7 +595,9 @@ function updateParticles() {
           if(collisionDetected){
             if(!navePieza2){
               console.log('Colisión detectada, guardando pieza de nave...');
-              sound_pieces.play();
+              if (soundEffectEnabled === 'true') {
+                sound_pieces.play();
+              }
 
               pieces++;
               piecesElement.textContent = `Contador: ${pieces}`;
@@ -601,7 +617,9 @@ function updateParticles() {
           if(collisionDetected){
             if(!navePieza3){
               console.log('Colisión detectada, guardando pieza de nave...');
-              sound_pieces.play();
+              if (soundEffectEnabled === 'true') {
+                sound_pieces.play();
+              }
 
               pieces++;
               piecesElement.textContent = `Contador: ${pieces}`;
@@ -615,11 +633,11 @@ function updateParticles() {
           }
         }
 
-         if (pieces==3 && !ganaste){
+        if (pieces == 3 && !ganaste){
           ganaste = true;
           console.log('has ganado papuche');
           window.location.replace("../../ganador.html");
-          } 
+        } 
 
       }
 

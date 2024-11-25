@@ -23,20 +23,20 @@
       alt="Imagen de Google" style="display: none;">
     </div>
 
-<!-- Coordenadas -->
-<div id="coordinates">Coordenadas: (0, 0, 0)</div>
+    <!-- Coordenadas -->
+    <div id="coordinates">Coordenadas: (0, 0, 0)</div>
 
-<!-- Stats del juego -->
-<div id="idVidaPlayer">Vida: 90</div>
-<div id="idNaveContador">Contador: 0</div>
+    <!-- Stats del juego -->
+    <div id="idVidaPlayer">Vida: 90</div>
+    <div id="idNaveContador">Contador: 0</div>
 
-<!-- Pantallas de Ganar y Perder -->
-<div id="idGanar"></div>
-<div id="idPerder"></div>
-
+    <!-- Pantallas de Ganar y Perder -->
+    <div id="idGanar"></div>
+    <div id="idPerder"></div>
 
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
+    <script src="../../JS/efectosSonidoScript.js"></script>
 
     <script type="module">
       // Conexion de Firebase y la API de Google
@@ -244,7 +244,8 @@
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
       var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
       var sound_pieces = new Audio('../../Audio/SoundEffects/Piezas.mp3');
-
+      // Verificar si los efectos de sonido están habilitados
+      var soundEffectEnabled = localStorage.getItem('soundEffectEnabled');
 
       scene.add(cube1, plane);
 
