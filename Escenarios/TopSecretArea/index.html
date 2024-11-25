@@ -215,6 +215,60 @@
           scene.add(objDamageSoldier);
         }
       );
+
+       //SEGUIR JUGADOR
+    //=========================================
+
+  //enemigo correlon 1
+  const pointA = new THREE.Vector3(39, -0.20, 16); // Primer punto de patrulla
+  const pointB = new THREE.Vector3(39, -0.20, 6);  // Segundo punto de patrulla
+  const pointC = new THREE.Vector3(34, -0.20, 10);  // Segundo punto de patrulla
+  const pointD = new THREE.Vector3(45, -0.20, 10);  // Segundo punto de patrulla
+  let currentTarget = pointA; // Inicialmente, el objetivo es el punto A
+
+  function updateEnemyPosition1(EnemigoName) {
+  const Enemigo = scene.getObjectByName(EnemigoName);
+      if (Enemigo) {
+        // Calcula la dirección hacia el objetivo
+        const direction = currentTarget.clone().sub(Enemigo.position).normalize();
+
+        // Ajusta la velocidad del enemigo
+        const speed = 89;
+
+        // Mueve al enemigo hacia el objetivo
+        Enemigo.position.add(direction.multiplyScalar(speed));
+
+        // Verifica si el enemigo ha alcanzado el objetivo actual con una tolerancia
+        const distanceToTarget = Enemigo.position.distanceTo(currentTarget);
+        const tolerance = 0.1; // Define una tolerancia
+
+        if (distanceToTarget < tolerance) {
+          // Cambia al siguiente objetivo
+          if (currentTarget === pointA) {
+            currentTarget = pointB;
+          } else if (currentTarget === pointB) {
+            currentTarget = pointC;
+          } else if (currentTarget === pointC) {
+            currentTarget = pointD;
+          }else if (currentTarget === pointD) {
+            currentTarget = pointA;
+          }
+        }
+      }
+   }
+
+  
+
+
+      function followPlayer() {
+      const jugador = scene.getObjectByName("player");
+      const soldado1 = scene.getObjectByName("objDamage1");
+       if (jugador && soldado1) {
+          var jugadorPos = jugador.position.clone();
+          var direccion = jugadorPos.sub(soldado1.position).normalize();
+          soldado1.position.add(direccion.multiplyScalar(.25));
+        }
+        }
       
        // -----minas-------
 
@@ -938,6 +992,10 @@
           
         }
 
+        
+        followPlayer()
+
+        
         //------COORDENADAS------
         updateCharacterPosition();
 
