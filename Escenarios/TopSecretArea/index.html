@@ -18,6 +18,14 @@
     <!-- Coordenadas -->
     <div id="coordinates">Coordenadas: (0, 0, 0)</div>
 
+<!-- Stats del juego -->
+<div id="idVidaPlayer">Vida: 90</div>
+<div id="idNaveContador">Contador: 0</div>
+
+<!-- Pantallas de Ganar y Perder -->
+<div id="idGanar"></div>
+<div id="idPerder"></div>
+
     <!-- JS -->
     <script src="../../JS/musicaScript.js"></script>
 
@@ -66,23 +74,8 @@
       cube1.castShadow = true;
       cube1.position.set(3, 0, 0);
 
-      // document.onkeydown = function (e) {
-      //   if (e.keyCode == 37) {
-      //     cube1.position.x -= 1;
-      //   }
-
-      //   if (e.keyCode == 39) {
-      //     cube1.position.x += 1;
-      //   }
-
-      //   if (e.keyCode == 38) {
-      //     cube1.position.z -= 1;
-      //   }
-
-      //   if (e.keyCode == 40) {
-      //     cube1.position.z += 1;
-      //   }
-      // };
+   // PLANO DEL TERRENO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
 
       const planeGeometry = new THREE.PlaneGeometry(250, 250);
       const textureLoader = new THREE.TextureLoader();
@@ -95,7 +88,7 @@
       
       scene.add(cube1, plane);
 
-      const loaderSTL = new STLLoader();
+     /* const loaderSTL = new STLLoader();
       loaderSTL.load("deadMouse.stl", function (model) {
         console.log(model);
         const material = new THREE.MeshPhongMaterial({ color: "red" });
@@ -104,7 +97,49 @@
         mesh.scale.set(0.03, 0.03, 0.03);
         scene.add(mesh);
         console.log(mesh);
-      });
+      });  */
+
+// DECLARACION DE VARIABLES, FLAGS Y CONTADORES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      let life = 90;
+      const lifeElement = document.getElementById('idVidaPlayer');
+      
+      // Banderas para detectar las colisiones que generan danio
+      let isInContact1 = false;
+      let isInContact2 = false;
+      let isInContact3 = false;
+      let isInContact4 = false;
+      let isInContact5 = false;
+      let isInContact6 = false;
+      
+
+      let speed = 1;
+      let speedMultiplier = 3;
+      let powerUpDuration = 5000; // Duración de la velocidad en milisegundos (5 segundos)
+
+      let shieldActive = false;
+      let shieldDuration = 10000; // Duración del escudo en milisegundos (10 segundos)
+      let originalMaterials = []; // Arreglo para guardar la textura original de 16°
+      let colorShieldApplied = false;
+
+      let pieces = 0;
+      const piecesElement = document.getElementById('idNaveContador');
+      var navePieza1 = false;
+      var navePieza2 = false;
+      var navePieza3 = false;
+      
+      var perdiste = false;
+
+      // DECLARACION DE EFECTOS DE SONIDO
+      var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
+      var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
+      var sound_pieces = new Audio('../../Audio/SoundEffects/Piezas.mp3');
+
+
+// JUGADOR
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
 
       let Player1;
       const jugador = scene.getObjectByName("player");
@@ -114,7 +149,7 @@
         function (model) {
           Player1 = model.scene;
           Player1.scale.set(1, 1, 1);
-          Player1.position.set(0, -0.2, 0);
+          Player1.position.set(-14, -0.2, -8);
           Player1.name = "player";
           scene.add(Player1);
         }
@@ -136,6 +171,10 @@
         }
       }
 
+
+       // CONTROLES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
       document.onkeydown = function (e) {
         if (Player1){
          // derecha
@@ -156,19 +195,589 @@
             }
   
       }  
-  
+
       }
+
+
+      // MODELOS QUE GENERAN DAÑO
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+     //---soldado----
+      const objDamage1 = scene.getObjectByName("objDamage1");
       const soldier = new GLTFLoader();
       soldier.load(
         "./soldier/scene.gltf",
         function (model) {
-          const obj = model.scene;
-          obj.scale.set(0.03, 0.03, 0.03);
-          obj.position.set(6, 0, 0);
-          scene.add(obj);
+          const objDamageSoldier = model.scene;
+          objDamageSoldier.scale.set(0.03, 0.03, 0.03);
+          objDamageSoldier.position.set(39, -0.2, 11);
+          objDamageSoldier.name = "objDamage1"
+          scene.add(objDamageSoldier);
         }
       );
       
+       // -----minas-------
+
+
+      const objDamage2 = scene.getObjectByName("objDamage2");
+      const mina = new GLTFLoader();
+      mina.load(
+        "/Escenarios/modelosGenerales/mina/scene.gltf",
+        function (model) {
+          const objDamageMina = model.scene;
+          objDamageMina.scale.set(1, 1, 1);
+          objDamageMina.rotation.set(0, 180, 0);
+          objDamageMina.position.set(30, 0, 70);
+          objDamageMina.name = "objDamage2";
+          scene.add(objDamageMina);
+        }
+      );
+
+
+      const objDamage3 = scene.getObjectByName("objDamage3");
+      const mina_2 = new GLTFLoader();
+      mina.load(
+        "/Escenarios/modelosGenerales/mina/scene.gltf",
+        function (model) {
+          const objDamageMina2 = model.scene;
+          objDamageMina2.scale.set(1, 1, 1);
+          objDamageMina2.rotation.set(0, 180, 0);
+          objDamageMina2.position.set(-16, 0, -30);
+          objDamageMina2.name = "objDamage3";
+          scene.add(objDamageMina2);
+        }
+      );
+
+      const objDamage4 = scene.getObjectByName("objDamage4");
+      const mina_3 = new GLTFLoader();
+      mina.load(
+        "/Escenarios/modelosGenerales/mina/scene.gltf",
+        function (model) {
+          const objDamageMina = model.scene;
+          objDamageMina3.scale.set(1, 1, 1);
+          objDamageMina3.rotation.set(0, 180, 0);
+          objDamageMina3.position.set(-60, 0, 45);
+          objDamageMina3.name = "objDamage4";
+          scene.add(objDamageMina3);
+        }
+      );
+
+      const objDamage5 = scene.getObjectByName("objDamage5");
+      const mina_4 = new GLTFLoader();
+      mina.load(
+        "/Escenarios/modelosGenerales/mina/scene.gltf",
+        function (model) {
+          const objDamageMina4 = model.scene;
+          objDamageMina4.scale.set(1, 1, 1);
+          objDamageMina4.rotation.set(0, 180, 0);
+          objDamageMina4.position.set(100, 0, -25);
+          objDamageMina4.name = "objDamage5";
+          scene.add(objDamageMina4);
+        }
+      );
+
+      const objDamage6 = scene.getObjectByName("objDamage6");
+
+      const cactus = new GLTFLoader();
+      cactus.load(
+        "./cactus/scene.gltf",
+        function (model) {
+          const objDamageCactus = model.scene;
+          objDamageCactus.scale.set(2.0, 2.0, 2.0);
+          objDamageCactus.rotation.set(0, 0, 0);
+          objDamageCactus.position.set(70, 0, 40);
+          objDamageCactus.name = "objDamage6";
+          scene.add(obj);
+        }
+      );
+
+
+     // MODELOS DE POWERUPS
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      //-----Vida--------
+      const objItemHealth = scene.getObjectByName("objItemHealth");
+      const itemVida = new GLTFLoader();
+      itemVida.load(
+        "/Escenarios/modelosGenerales/powerUps/Vida/item_vida.gltf",
+        function (model) {
+          const objItem1 = model.scene;
+          objItem1.position.set(9, 0.2, 79);
+          objItem1.rotation.set(0, 90, 0);
+          objItem1.name = "objItemHealth";
+          scene.add(objItem1);
+        }
+      );
+
+      //-----Escudo--------
+      const objItemShield = scene.getObjectByName("objItemShield");
+      const itemEscudo = new GLTFLoader();
+      itemEscudo.load(
+        "/Escenarios/modelosGenerales/powerUps/Escudo/item_escudo1.gltf",
+        function (model) {
+          const objItem2 = model.scene;
+          objItem2.scale.set(0.4, 0.4, 0.4);
+          objItem2.position.set(104, 1, -47);
+          objItem2.name = "objItemShield";
+          scene.add(objItem2);
+        }
+      );
+
+      //-----Velocidad--------
+      const objItemSpeed = scene.getObjectByName("objItemSpeed");
+      const itemVelocidad = new GLTFLoader();
+      itemVelocidad.load(
+        "/Escenarios/modelosGenerales/powerUps/Velocidad/item_velocidad.gltf",
+        function (model) {
+          const objItem3 = model.scene;
+          objItem3.position.set(37, 0.2, -7);
+          objItem3.rotation.set(0, 90, 0);
+          objItem3.name = "objItemSpeed";
+          scene.add(objItem3);
+        }
+      );
+
+      // MODELOS DE LAS PIEZAS DE LA NAVE
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      const objPiece1 = scene.getObjectByName("objPiece1");
+      const naveTrozo1 = new GLTFLoader();
+      naveTrozo1.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo1.glb",
+        function (model) {
+          const objShipPiece1 = model.scene;
+          objShipPiece1.position.set(-10, 0.2, 79);
+          objShipPiece1.name = "objPiece1";
+          scene.add(objShipPiece1);
+        }
+      );
+
+      const objPiece2 = scene.getObjectByName("objPiece2");
+      const naveTrozo2 = new GLTFLoader();
+      naveTrozo2.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo2.glb",
+        function (model) {
+          const objShipPiece2 = model.scene;
+          objShipPiece2.position.set(25, 1.25, -7);
+          objShipPiece2.name = "objPiece2";
+          scene.add(objShipPiece2);
+        }
+      );
+
+      const objPiece3 = scene.getObjectByName("objPiece3");
+      const naveTrozo3 = new GLTFLoader();
+      naveTrozo3.load(
+        "/Escenarios/modelosGenerales/nave/nave_trozo3_cristal.glb",
+        function (model) {
+          const objShipPiece3 = model.scene;
+          objShipPiece3.position.set(94, -0.5, -47);
+          objShipPiece3.name = "objPiece3";
+          scene.add(objShipPiece3);
+        }
+      );
+
+  // FUNCION DE COLISIONES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      function detectCollision(object1, object2) {
+        const box1 = new THREE.Box3().setFromObject(object1);
+        const box2 = new THREE.Box3().setFromObject(object2);
+
+        // Comprueba si los bounding boxes (cajas delimitadoras) se superponen
+        return box1.intersectsBox(box2);
+      }
+
+
+// COLISIONES ENTRE MODELOS
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+      function checkCollisions() {
+        // DECLARACION DE CONSTS
+        const jugadorCol = scene.getObjectByName("player");
+
+        const objDamageCol1 = scene.getObjectByName("objDamage1");
+        const objDamageCol2 = scene.getObjectByName("objDamage2");
+        const objDamageCol3 = scene.getObjectByName("objDamage3");
+        const objDamageCol4 = scene.getObjectByName("objDamage4");
+        const objDamageCol5 = scene.getObjectByName("objDamage5");
+        const objDamageCol6 = scene.getObjectByName("objDamage6");
+
+        const objHealthCol = scene.getObjectByName("objItemHealth");
+        const objShieldCol = scene.getObjectByName("objItemShield");
+        const objSpeedCol = scene.getObjectByName("objItemSpeed");
+
+        const objPieceCol1 = scene.getObjectByName("objPiece1");
+        const objPieceCol2 = scene.getObjectByName("objPiece2");
+        const objPieceCol3 = scene.getObjectByName("objPiece3");
+
+        // COLISIONES DE BAJA DE VIDA
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------soldado---------
+        if (jugadorCol && objDamageCol1 && !shieldActive) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol1);
+          
+          if (collisionDetected && !isInContact1) {  // Si es la primera vez que detecta la colisión
+            
+            if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact1 = true;  // Establece que estamos en contacto
+            }
+
+          } else if (!collisionDetected && isInContact1) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact1 = false;
+
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
+          }
+        }
+
+        //-------mina---------
+        if (jugadorCol && objDamageCol2 && !shieldActive) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol2);
+          
+          if (collisionDetected && !isInContact2) {  // Si es la primera vez que detecta la colisión
+            
+            if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact2 = true;  // Establece que estamos en contacto
+            }
+
+          } else if (!collisionDetected && isInContact2) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact2 = false;
+            
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
+          }
+        }
+
+        //-------mina 2---------
+        if (jugadorCol && objDamageCol3 && !shieldActive) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol3);
+          
+          if (collisionDetected && !isInContact3) {  // Si es la primera vez que detecta la colisión
+            
+            if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact3 = true;  // Establece que estamos en contacto
+            }
+
+          } else if (!collisionDetected && isInContact3) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact3 = false;
+            
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
+          }
+        }
+
+        //-------mina 3---------
+        if (jugadorCol && objDamageCol4 && !shieldActive) {
+          
+          const collisionDetected = detectCollision(jugadorCol, objDamageCol4);
+          
+          if (collisionDetected && !isInContact4) {  // Si es la primera vez que detecta la colisión
+            
+            if (life > 0) {
+              console.log('Colisión detectada, aplicando daño...');
+              sound_damage.play();
+              life -= 30;  // Reducir vida en 30
+              life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+              lifeElement.textContent = `Vida: ${life}`;
+              console.log(`Vida restante: ${life}`);
+              isInContact4 = true;  // Establece que estamos en contacto
+            }
+
+          } else if (!collisionDetected && isInContact4) {
+            // Si ya no están en contacto, restablecemos el estado
+            isInContact4 = false;
+            
+            console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+          }
+
+          if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+            perdiste = true;
+            console.log('¡Has perdido!');
+            window.location.replace("../../perdedor.html");
+          }
+        }
+
+ //-------mina 4---------
+ if (jugadorCol && objDamageCol5 && !shieldActive) {
+          
+  const collisionDetected = detectCollision(jugadorCol, objDamageCol5);
+  
+  if (collisionDetected && !isInContact5) {  // Si es la primera vez que detecta la colisión
+    
+    if (life > 0) {
+      console.log('Colisión detectada, aplicando daño...');
+      sound_damage.play();
+      life -= 30;  // Reducir vida en 30
+      life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+      lifeElement.textContent = `Vida: ${life}`;
+      console.log(`Vida restante: ${life}`);
+      isInContact5 = true;  // Establece que estamos en contacto
+    }
+
+  } else if (!collisionDetected && isInContact5) {
+    // Si ya no están en contacto, restablecemos el estado
+    isInContact5 = false;
+    
+    console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+  }
+
+  if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+    perdiste = true;
+    console.log('¡Has perdido!');
+    window.location.replace("../../perdedor.html");
+  }
+}
+
+ //-------cactus---------
+ if (jugadorCol && objDamageCol6 && !shieldActive) {
+          
+  const collisionDetected = detectCollision(jugadorCol, objDamageCol6);
+  
+  if (collisionDetected && !isInContact6) {  // Si es la primera vez que detecta la colisión
+    
+    if (life > 0) {
+      console.log('Colisión detectada, aplicando daño...');
+      sound_damage.play();
+      life -= 30;  // Reducir vida en 30
+      life = Math.max(0, life);  // Asegurarse de que la vida no sea menor que 0
+      lifeElement.textContent = `Vida: ${life}`;
+      console.log(`Vida restante: ${life}`);
+      isInContact6 = true;  // Establece que estamos en contacto
+    }
+
+  } else if (!collisionDetected && isInContact6) {
+    // Si ya no están en contacto, restablecemos el estado
+    isInContact6 = false;
+    
+    console.log('Los objetos ya no están en contacto, esperando nueva colisión...');
+  }
+
+  if (life === 0 && !perdiste) {  // Solo asigna 'perdiste' si aún no es 'true'
+    perdiste = true;
+    console.log('¡Has perdido!');
+    window.location.replace("../../perdedor.html");
+  }
+}
+
+
+        // COLISIONES DE POWERUPS
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------Vida---------
+        if (jugadorCol && objHealthCol) {
+         
+          const collisionDetected = detectCollision(jugadorCol, objHealthCol);
+        
+          if (collisionDetected) {
+            console.log('Colisión detectada, subiendo vida...');
+            sound_powerup.play();
+
+            life += 30;
+            life = Math.min(life, 90);
+            
+            lifeElement.textContent = `Vida: ${life}`;
+            console.log(`Vida restante: ${life}`);
+            
+            // Destruir el PowerUp después de la colisión
+            scene.remove(objHealthCol);
+            console.log('PowerUp de Vida destruido');
+          }
+        }
+
+        //-------Escudo---------
+        if (jugadorCol && objShieldCol) {
+          const collisionDetected = detectCollision(jugadorCol, objShieldCol);
+          if (collisionDetected && !colorShieldApplied) {  // Solo aplicar el escudo si no se ha aplicado antes
+            console.log('Colisión detectada, agregando escudo...');
+            sound_powerup.play();
+            shieldActive = true;
+            colorShieldApplied = true;  // Marca que el escudo ha sido aplicado
+
+            // Guardar las propiedades originales de los materiales (incluyendo color y opacidad)
+            if (Player1) {
+              Player1.traverse((child) => {
+                if (child.isMesh) {
+                  // Guardar las propiedades originales solo si aún no se han guardado
+                  originalMaterials.push({
+                    mesh: child,
+                    material: child.material,
+                    color: child.material.color.clone(),  // Guardar el color original
+                    opacity: child.material.opacity,      // Guardar la opacidad original
+                    transparent: child.material.transparent, // Guardar la transparencia original
+                  });
+
+                  // Cambiar el color y la transparencia del material
+                  child.material.color.set(0x00FFFF);
+                  child.material.opacity = 0.5;
+                  child.material.transparent = true;   // Asegurarse de que sea transparente
+                  child.material.needsUpdate = true;   // Marcar el material para ser actualizado
+                }
+              });
+            }
+
+            // Destruir el PowerUp de Escudo después de la colisión
+            scene.remove(objShieldCol);
+            console.log('PowerUp de Escudo destruido');
+
+            // Quitar el escudo después de 10 segundos
+            setTimeout(() => {
+              shieldActive = false;
+              console.log('Escudo desactivado');
+
+              // Restaurar el material original después de que el escudo se desactive
+              if (Player1) {
+                Player1.traverse((child) => {
+                  if (child.isMesh) {
+                    const originalProps = originalMaterials.find(item => item.mesh === child);
+
+                    if (originalProps) {
+                      // Restaurar completamente el material original
+                      child.material.color.copy(originalProps.color);  // Restaurar el color original
+                      child.material.opacity = originalProps.opacity;  // Restaurar la opacidad
+                      child.material.transparent = originalProps.transparent;  // Restaurar la transparencia
+                      child.material.needsUpdate = true;  // Asegurarse de que se recargue el material
+                    }
+                  }
+                });
+
+                // Limpiar el array de materiales originales para la próxima vez
+                originalMaterials = [];
+              }
+
+              colorShieldApplied = false;  // Restablecer la variable de control
+            }, shieldDuration);  // Usar la variable 'shieldDuration' para el tiempo del escudo
+          }
+        }
+
+        //-------Velocidad---------
+        if (jugadorCol && objSpeedCol) {
+          const collisionDetected = detectCollision(jugadorCol, objSpeedCol);
+          
+          if (collisionDetected) {
+            console.log('Colisión detectada, subiendo velocidad...');
+            sound_powerup.play();
+
+            // Duplicar la velocidad
+            speed *= speedMultiplier;
+            console.log('Velocidad duplicada: ', speed);
+            
+            // Destruir el PowerUp después de la colisión
+            scene.remove(objSpeedCol);
+            console.log('PowerUp de Velocidad destruido');
+
+            // Restablecer la velocidad después de 5 segundos
+            setTimeout(() => {
+              speed /= speedMultiplier;
+              console.log('Velocidad restablecida: ', speed);
+            }, powerUpDuration);
+          }
+        }
+
+        // COLISIONES DE LAS PIEZAS DE LA NAVE
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        if (jugadorCol && objPieceCol1) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol1);
+
+          if(collisionDetected){
+            if(!navePieza1){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol1);
+              console.log('Pieza 1 destruida');
+            }
+            navePieza1 = true;
+            console.log('Pieza 1 adquirida');
+          }
+        }
+
+        if (jugadorCol && objPieceCol2) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol2);
+
+          if(collisionDetected){
+            if(!navePieza2){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol2);
+              console.log('Pieza 2 destruida');
+            }
+            navePieza2 = true;
+            console.log('Pieza 2 adquirida');
+          }
+        }
+
+        if (jugadorCol && objPieceCol3) {
+          const collisionDetected = detectCollision(jugadorCol, objPieceCol3);
+
+          if(collisionDetected){
+            if(!navePieza3){
+              console.log('Colisión detectada, guardando pieza de nave...');
+              sound_pieces.play();
+
+              pieces++;
+              piecesElement.textContent = `Contador: ${pieces}`;
+
+              // Destruir el PowerUp después de la colisión
+              scene.remove(objPieceCol3);
+              console.log('Pieza 3 destruida');
+            }
+            navePieza3 = true;
+            console.log('Pieza 3 adquirida');
+          }
+        }
+
+      }
+
+      //modelos de fondo
+      //--------------------------------------------------------------------------------------------------------------------------
       const base = new GLTFLoader();
       base.load(
         "./armybase/BaseMilitar.glb",
@@ -217,66 +826,7 @@
         }
       ); */
 
-      const mina = new GLTFLoader();
-      mina.load(
-        "/Escenarios/modelosGenerales/mina/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(30, 0, 70);
-          scene.add(obj);
-        }
-      );
-
-      const mina_2 = new GLTFLoader();
-      mina.load(
-        "/Escenarios/modelosGenerales/mina/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(-16, 0, -30);
-          scene.add(obj);
-        }
-      );
-
-      const mina_3 = new GLTFLoader();
-      mina.load(
-        "/Escenarios/modelosGenerales/mina/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(-60, 0, 45);
-          scene.add(obj);
-        }
-      );
-
-      const mina_4 = new GLTFLoader();
-      mina.load(
-        "/Escenarios/modelosGenerales/mina/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(1, 1, 1);
-          obj.rotation.set(0, 180, 0);
-          obj.position.set(100, 0, -25);
-          scene.add(obj);
-        }
-      );
-
-
-      const cactus = new GLTFLoader();
-      cactus.load(
-        "./cactus/scene.gltf",
-        function (model) {
-          const obj = model.scene;
-          obj.scale.set(2.0, 2.0, 2.0);
-          obj.rotation.set(0, 0, 0);
-          obj.position.set(70, 0, 40);
-          scene.add(obj);
-        }
-      );
+  
 
 
       const roca = new GLTFLoader();
@@ -385,12 +935,18 @@
       function animate() {
         if (mixer) {
           mixer.update(0.01);
+          
         }
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
 
         //------COORDENADAS------
         updateCharacterPosition();
+
+        //------COLISIONES-------
+        checkCollisions();
+       
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
         
       }
 
