@@ -104,7 +104,7 @@
       var navePieza3 = false;
       
       var perdiste = false;
-
+      var ganaste = false;
       // DECLARACION DE EFECTOS DE SONIDO
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
       var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
@@ -344,7 +344,11 @@
             console.log('¡Has perdido!');
             window.location.replace("../../perdedor.html");
           }
+
+
         }
+
+        
 
         //-------Cohete---------
         if (jugadorCol && objDamageCol2 && !shieldActive) {
@@ -551,6 +555,12 @@
             console.log('Pieza 3 adquirida');
           }
         }
+
+         if (pieces==3 && !ganaste){
+          ganaste = true;
+          console.log('has ganado papuche');
+          window.location.replace("../../ganador.html");
+          } 
 
       }
 

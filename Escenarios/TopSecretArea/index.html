@@ -130,6 +130,7 @@
       var navePieza3 = false;
       
       var perdiste = false;
+      var ganaste = false;
 
       // DECLARACION DE EFECTOS DE SONIDO
       var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
@@ -233,7 +234,7 @@
         const direction = currentTarget.clone().sub(Enemigo.position).normalize();
 
         // Ajusta la velocidad del enemigo
-        const speed = 89;
+        const speed = 10000089;
 
         // Mueve al enemigo hacia el objetivo
         Enemigo.position.add(direction.multiplyScalar(speed));
@@ -827,7 +828,11 @@
             console.log('Pieza 3 adquirida');
           }
         }
-
+        if (pieces==3 && !ganaste){
+          ganaste = true;
+          console.log('has ganado papuche');
+          window.location.replace("../../ganador.html");
+          } 
       }
 
       //modelos de fondo
