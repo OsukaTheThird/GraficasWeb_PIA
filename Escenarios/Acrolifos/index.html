@@ -303,13 +303,34 @@
                 scene.add(obj);
               }
             );
+
+            
+      // COORDENADAS DEL JUGADOR EN PANTALLA
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+      const coordinatesText = document.getElementById('coordinates');
+
+      function updateCharacterPosition() {
+        // Obtén el jugador por su nombre "player"
+        const starCountRef = ref(db, "jugadores");
+
+        if (starCountRef) {
+          // Actualizar y mostrar las coordenadas en pantalla
+          const playerPosition = starCountRef.position;
+          coordinatesText.textContent = `Coordenadas: (${playerPosition.x.toFixed(2)}, ${playerPosition.y.toFixed(2)}, ${playerPosition.z.toFixed(2)})`;
+        }
+      }
           };
 
           scene.getObjectByName(key).position.x = value.x;
           scene.getObjectByName(key).position.z = value.z;
 
+
+
         });
       });    
+
+
 
       //Escribir
       function writeUserData(userId, positionX, positionZ) {
@@ -497,6 +518,10 @@
         if (mixer) {
           mixer.update(0.01);
         }
+
+         
+        
+
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
       }
