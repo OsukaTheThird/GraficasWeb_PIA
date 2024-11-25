@@ -213,6 +213,39 @@
         }
       }; */
 
+      // DECLARACION DE VARIABLES, FLAGS Y CONTADORES
+      //---------------------------------------------------------------------------------------------------------------------------------------------------
+      
+      let life = 90;
+      const lifeElement = document.getElementById('idVidaPlayer');
+      
+      // Banderas para detectar las colisiones que generan danio
+      let isInContact1 = false;
+      let isInContact2 = false;
+
+      let speed = 1;
+      let speedMultiplier = 3;
+      let powerUpDuration = 5000; // Duración de la velocidad en milisegundos (5 segundos)
+
+      let shieldActive = false;
+      let shieldDuration = 10000; // Duración del escudo en milisegundos (10 segundos)
+      let originalMaterials = []; // Arreglo para guardar la textura original de 16°
+      let colorShieldApplied = false;
+
+      let pieces = 0;
+      const piecesElement = document.getElementById('idNaveContador');
+      var navePieza1 = false;
+      var navePieza2 = false;
+      var navePieza3 = false;
+      
+      var perdiste = false;
+      var ganaste = false;
+      // DECLARACION DE EFECTOS DE SONIDO
+      var sound_damage = new Audio('../../Audio/SoundEffects/Damage.mp3');
+      var sound_powerup = new Audio('../../Audio/SoundEffects/PowerUp.mp3');
+      var sound_pieces = new Audio('../../Audio/SoundEffects/Piezas.mp3');
+
+
       scene.add(cube1, plane);
 
       const loaderSTL = new STLLoader();
