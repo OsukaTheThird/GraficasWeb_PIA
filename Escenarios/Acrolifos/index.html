@@ -139,6 +139,9 @@
       import { GLTFLoader } from "/JS/GLTFLoader.js";
 
       const scene = new THREE.Scene();
+
+      window.acrolifosScene = scene; 
+
       scene.background = new THREE.Color("#34495E");
       const backgroundTexture = new THREE.TextureLoader().load(
         "./backgrounds/ahorasi.jpg"
@@ -583,5 +586,7 @@ function updateParticles() {
 
       animate();
     </script>
+
+    <script src="../../JS/pausaScript.JS"></script>
   </body>
 </html>

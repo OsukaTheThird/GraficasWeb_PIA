@@ -1,3 +1,14 @@
+// FUNCION PARA QUE TE REGRESE A LA PANTALLA CORRESPONDIENTE (Eje: pausa.html)
+function ventanaAnterior() {
+    if (document.referrer) {
+        // Si la página de referencia existe, regresar a esa página
+        window.location.href = document.referrer;
+    } else {
+        // Si no hay una página de referencia, redirigir al inicio por defecto
+        window.location.href = 'inicio.html';
+    }
+}
+
 window.addEventListener('load', function () {
     // MUSICA
     var checkboxMusic = document.getElementById('checkboxMusic'); // El checkbox para controlar la música

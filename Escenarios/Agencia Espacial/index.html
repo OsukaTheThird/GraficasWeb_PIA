@@ -24,11 +24,10 @@
 
     <div class="button-container">
     </div>
-    <div class="button-container"><a href="../../Pausa.html" class="button">Pausa</a></div> 
     <div class="button-container">
-
-
-  
+      <button id="btnPausa" class="button">Pausa</button>
+    </div>
+    <div class="button-container">
 
     <!-- Pantallas de Ganar y Perder -->
     <div id="idGanar"></div>
@@ -46,6 +45,9 @@
       import { GLTFLoader } from "/JS/GLTFLoader.js";
 
       const scene = new THREE.Scene();
+
+      window.agenciaEspacialScene = scene; 
+      
       scene.background = new THREE.Color("#34495E");
       const backgroundTexture = new THREE.TextureLoader().load(
         "./backgrounds/area51.jpg"
@@ -188,6 +190,14 @@
           Player1.position.set(0, -0.2, 0);
           Player1.name = "player";
           scene.add(Player1);
+
+          window.Player1 = Player1;
+
+          console.log("Modelo de jugador cargado y agregado a la escena.");
+        },
+        undefined,
+        function (error) {
+          console.error("Error al cargar el modelo del jugador:", error);
         }
       );
 
@@ -197,15 +207,24 @@
       const coordinatesText = document.getElementById('coordinates');
 
       function updateCharacterPosition() {
-        // Obtén el jugador por su nombre "player"
         const jugador = scene.getObjectByName("player");
 
         if (jugador) {
-          // Actualizar y mostrar las coordenadas en pantalla
+          // Actualizar las coordenadas en la pantalla
           const playerPosition = jugador.position;
           coordinatesText.textContent = `Coordenadas: (${playerPosition.x.toFixed(2)}, ${playerPosition.y.toFixed(2)}, ${playerPosition.z.toFixed(2)})`;
+
+          // Guardar las coordenadas en localStorage para accederlas en otro momento
+          localStorage.setItem("playerPosition", JSON.stringify({
+            x: playerPosition.x,
+            y: playerPosition.y,
+            z: playerPosition.z
+          }));
         }
       }
+
+      // Llamar a esta función constantemente para mantener las coordenadas actualizadas
+      setInterval(updateCharacterPosition, 1000);  // Actualiza cada segundo
 
       // CONTROLES
       //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -846,5 +865,7 @@
 
       animate(); 
     </script>
+
+    <script src="../../JS/pausaScript.JS"></script>
   </body>
 </html>
