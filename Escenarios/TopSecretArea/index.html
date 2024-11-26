@@ -291,7 +291,7 @@
         function (model) {
           const objDamageSoldier = model.scene;
           objDamageSoldier.scale.set(0.03, 0.03, 0.03);
-          objDamageSoldier.position.set(39, -0.2, 11);
+          objDamageSoldier.position.set(-104, -0.2, 84);
           objDamageSoldier.name = "objDamage1"
           scene.add(objDamageSoldier);
         }
@@ -314,7 +314,7 @@
           const direction = currentTarget.clone().sub(Enemigo.position).normalize();
 
           // Ajusta la velocidad del enemigo
-          const speed = 1;
+          const speed = -64;
 
           // Mueve al enemigo hacia el objetivo
           Enemigo.position.add(direction.multiplyScalar(speed));
